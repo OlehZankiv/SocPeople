@@ -1,0 +1,10 @@
+.post {
+}
+
+.post img {
+    width: 50px;
+    border-radius: 100%;
+}
+.post .post_info {
+    display: flex;
+}
