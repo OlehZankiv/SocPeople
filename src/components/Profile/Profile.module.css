@@ -8,11 +8,14 @@
 }
 
 .content {
-    background-color: #424242;
-    border: 2px solid #3e3e3e;
     width: 100%;
     color: white;
-    border-radius: 10px;
     padding: 10px;
 }
 
+.wrapper_avatar {
+    border-radius: 10px;
+    background-color: #424242;
+    border: 2px solid #3e3e3e;
+    min-height: 250px;
+}

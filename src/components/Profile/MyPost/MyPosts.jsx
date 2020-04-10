@@ -4,12 +4,11 @@ import Post from "./Post/Post";
 
 const MyPosts = () => {
     return (
-        <div className={s.post}>
-            Post
-            <div className={s.new_post}>new</div>
-            <div className={s.old_post}>
-                <Post />
-                <Post />
+        <div className={s.posts}>
+            <div className={s.new_post}>New Post</div>
+            <div className={s.old_posts}>
+                <Post message="Hello, It's my first props" likeCount="6"/>
+                <Post message="It's very funny!" likeCount="11"/>
             </div>
         </div>
     );
