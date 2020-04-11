@@ -21,3 +21,7 @@ body {
 .main {
     display: flex;
 }
+
+.content {
+    width: 100%;
+}
