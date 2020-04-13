@@ -20,12 +20,23 @@
     color: rgb(93, 190, 255);
     margin: 0 0 5px 0;
 }
+.nav a.active {
+    border-bottom: 2px solid;
+    font-weight: 700;
+    color: rgb(74, 147, 255);
+}
+
 .nav a {
     color: white;
     font-size: 20px;
     text-decoration: none;
+    transition: .15s all;
 }
 .nav a:hover {
-    color: white;
-    text-decoration: underline;
+    letter-spacing: 1.5px;
+    font-weight: 600;
+    border: none;
+    display: block;
+    transform: scale(1.025, 1.025);
+    color: rgb(125, 177, 255);
 }

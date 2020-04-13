@@ -1,0 +1,13 @@
+import React from "react";
+import s from "./ProfileInfo.module.css";
+
+const ProfileInfo = () => {
+    return (
+        <div className={s.wrapper_avatar}>
+            <div class={s.img_head}></div>
+            <div className={s.avatar}>ava + descr</div>
+        </div>
+    );
+};
+
+export default ProfileInfo;

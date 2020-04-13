@@ -1,0 +1,20 @@
+.img_head {
+    background: url("https://upload.wikimedia.org/wikipedia/commons/thumb/4/42/Shaqi_jrvej.jpg/1280px-Shaqi_jrvej.jpg")
+        center center/cover no-repeat;
+    height: 160px;
+    border-radius: 10px;
+    width: 100%;
+    box-shadow: 0 5px 5px rgba(0, 0, 0, 0.404);
+}
+
+.wrapper_avatar {
+    padding: 15px;
+    border-radius: 10px;
+    background-color: #424242;
+    border: 2px solid #3e3e3e;
+    min-height: 250px;
+}
+
+.avatar {
+    padding: 10px;
+}

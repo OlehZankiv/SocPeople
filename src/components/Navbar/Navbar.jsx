@@ -1,5 +1,6 @@
 import React from "react";
 import s from "./Navbar.module.css";
+import { NavLink } from "react-router-dom";
 
 const Navbar = () => {
     return (
@@ -7,22 +8,32 @@ const Navbar = () => {
             <h2>Shortcuts</h2>
             <hr />
             <div>
-                <a href="/profile">Profile</a>
+                <NavLink to="/profile" activeClassName={s.active}>
+                    Profile
+                </NavLink>
             </div>
             <div>
-                <a href="/dialogs">Messages</a>
+                <NavLink to="/dialogs" activeClassName={s.active}>
+                    Messages
+                </NavLink>
             </div>
             <div>
-                <a href="/news">News</a>
+                <NavLink to="/news" activeClassName={s.active}>
+                    News
+                </NavLink>
             </div>
             <div>
-                <a href="/music">Music</a>
+                <NavLink to="/music" activeClassName={s.active}>
+                    Music
+                </NavLink>
             </div>
             <div>
-                <a href="/settings">Settings</a>
+                <NavLink to="/settings" activeClassName={s.active}>
+                    Settings
+                </NavLink>
             </div>
         </nav>
     );
 };
 
-export default Navbar
+export default Navbar;

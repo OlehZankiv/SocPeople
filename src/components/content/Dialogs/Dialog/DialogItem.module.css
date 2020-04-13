@@ -1,0 +1,14 @@
+.item.active {
+    color: rgb(125, 177, 255);
+    font-weight: 700;
+    font-size: 20px;
+    letter-spacing: 1px;
+}
+
+.item {
+    color: white;
+    font-size: 18px;
+    padding: 7px 0;
+    text-decoration: none;
+    display: block;
+}
