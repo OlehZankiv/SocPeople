@@ -1,10 +1,17 @@
 import React from "react";
 import s from "./Dialogs.module.css";
-import DialogItem from "./Dialog/DialogItem"
-import Message from "./Message/Message"
-
+import DialogItem from "./Dialog/DialogItem";
+import Message from "./Message/Message";
 
 const Dialogs = (props) => {
+    let dialogItems = props.dialogs.map((d) => (
+        <DialogItem id={d.id} name={d.name} />
+    ));
+
+    let message = props.messages.map((message) => (
+        <Message message={message.message} />
+    ));
+
     return (
         <div className={s.dialogs_wrapper}>
             <h2>
@@ -12,17 +19,8 @@ const Dialogs = (props) => {
                 <hr />
             </h2>
             <div className={s.dialogs}>
-                <div className={s.dialogs_items}>
-                    <DialogItem id="1" name="Aleh" />
-                    <DialogItem id="2" name="Ovechka" />
-                    <DialogItem id="3" name="Yana" />
-                    <DialogItem id="4" name="Putana" />
-                </div>
-                <div className={s.messages}>
-                    <Message message="Hi" />
-                    <Message message="How are you?" />
-                    <Message message="Good, are you?" />
-                </div>
+                <div className={s.dialogs_items}>{dialogItems}</div>
+                <div className={s.messages}>{message}</div>
             </div>
         </div>
     );
