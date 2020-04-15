@@ -5,6 +5,19 @@
     letter-spacing: 1px;
 }
 
+.profileItem {
+    display: flex;
+    align-items: center;
+}
+
+.profileItem img {
+    margin: 5px 10px 5px 0;
+    width: 40px;
+    height: 40px;
+    border: 3px solid white;
+    border-radius: 100%;
+}
+
 .item {
     color: white;
     font-size: 18px;

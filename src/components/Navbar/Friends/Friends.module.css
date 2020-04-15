@@ -1,0 +1,25 @@
+.friends {
+    text-align: center;
+}
+
+.friendsWrapper {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    padding: 0 15px 0 10px !important;
+}
+
+.wrappH {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.wrappH h2 {
+    margin: 0 0 10px 0;
+}
+
+.wrappH hr {
+    width: 75%;
+}

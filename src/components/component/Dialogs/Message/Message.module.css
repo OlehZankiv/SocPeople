@@ -1,0 +1,21 @@
+.messageWrapper {
+    padding: 5px 0;
+}
+
+.message {
+    display: flex;
+    align-items: center;
+}
+
+.message img {
+    margin: 5px;
+    width: 30px;
+    height: 30px;
+    border: 2px solid white;
+    border-radius: 100%;
+}
+
+.right {
+    display: flex;
+    justify-content: flex-end;
+}

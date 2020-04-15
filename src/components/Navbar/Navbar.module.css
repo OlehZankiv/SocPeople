@@ -1,38 +1,48 @@
 .nav {
-    border-radius: 10px;
-    margin-right: 15px;
-    width: 500px;
-    height: 300px;
     background: #424242 none repeat scroll 0 0;
     border: 2px solid #3e3e3e;
     padding: 20px;
+    border-radius: 10px;
+}
+.friendsWrapper {
+    margin-top: 15px;
+    background: #424242 none repeat scroll 0 0;
+    border: 2px solid #3e3e3e;
+    padding: 20px;
+    border-radius: 10px;
 }
 
-.nav div {
+.sidebar {
+    margin-right: 15px;
+    width: 500px;
+    min-height: 300px;
+}
+
+.sidebar div {
     padding: 7px 0;
 }
-.nav hr {
+.sidebar hr {
     border: 2px solid rgb(64, 131, 255);
     width: 50%;
     margin: 0 0 15px 0;
 }
-.nav h2 {
+.sidebar h2 {
     color: rgb(93, 190, 255);
     margin: 0 0 5px 0;
 }
-.nav a.active {
+.sidebar a.active {
     border-bottom: 2px solid;
     font-weight: 700;
     color: rgb(74, 147, 255);
 }
 
-.nav a {
+.sidebar a {
     color: white;
     font-size: 20px;
     text-decoration: none;
     transition: .15s all;
 }
-.nav a:hover {
+.sidebar a:hover {
     letter-spacing: 1.5px;
     font-weight: 600;
     border: none;

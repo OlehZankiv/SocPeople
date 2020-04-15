@@ -2,12 +2,12 @@ import React from "react";
 import "./App.css";
 import Header from "./components/Header/Header";
 import Navbar from "./components/Navbar/Navbar";
-import Profile from "./components/content/Profile/Profile";
-import Dialogs from "./components/content/Dialogs/Dialogs";
+import Profile from "./components/component/Profile/Profile";
+import Dialogs from "./components/component/Dialogs/Dialogs";
 import { Route, BrowserRouter } from "react-router-dom";
-import Music from "./components/content/Music/Music";
-import Settings from "./components/content/Settings/Settings";
-import News from "./components/content/News/News";
+import Music from "./components/component/Music/Music";
+import Settings from "./components/component/Settings/Settings";
+import News from "./components/component/News/News";
 
 const App = (props) => {
     return (
@@ -15,18 +15,18 @@ const App = (props) => {
             <div className="app-wrapper">
                 <Header />
                 <main className="main container">
-                    <Navbar />
+                    <Navbar friends={props.state.friends}/>
                     <div className="content">
                         <Route
                             path="/profile"
-                            component={() => <Profile posts={props.posts} />}
+                            render={() => <Profile posts={props.state.profile.posts} />}
                         />
                         <Route
                             path="/dialogs"
-                            component={() => (
+                            render={() => (
                                 <Dialogs
-                                    dialogs={props.dialogs}
-                                    messages={props.messages}
+                                    dialogs={props.state.dialogs.dialogs}
+                                    messages={props.state.dialogs.messages}
                                 />
                             )}
                         />
