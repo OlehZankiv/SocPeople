@@ -19,7 +19,7 @@ const App = (props) => {
                     <div className="content">
                         <Route
                             path="/profile"
-                            render={() => <Profile posts={props.state.profile.posts} />}
+                            render={() => <Profile profile={props.state.profile} />}
                         />
                         <Route
                             path="/dialogs"

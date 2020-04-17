@@ -25,6 +25,21 @@
     width: 30%;
 }
 
-.messages {
+.messageWrapper {
     width: 70%;
+}
+
+.messageWrapper hr {
+    border: 1px solid;
+    background-color: rgb(202, 202, 202);
+    color: rgb(202, 202, 202);
+}
+
+.messageWrapper textarea {
+    height: 70px;
+    margin-top: 25px;
+}
+.messageWrapper .btn {
+    display: flex;
+    justify-content: flex-end;
 }

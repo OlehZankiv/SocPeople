@@ -12,15 +12,15 @@ const Message = (props) => {
             </div>
         );
     } else {
-    }
-    return (
-        <div className={s.messageWrapper}>
-            <div className={s.message}>
-                <img src={props.avatar} alt="avatar" />
-                {props.message}
+        return (
+            <div className={s.messageWrapper}>
+                <div className={s.message}>
+                    <img src={props.avatar} alt="avatar" />
+                    {props.message}
+                </div>
             </div>
-        </div>
-    );
+        );
+    }
 };
 
 export default Message;

@@ -4,7 +4,7 @@ import s from "./ProfileInfo.module.css";
 const ProfileInfo = (props) => {
     return (
         <div className={s.wrapper_avatar}>
-            <div class={s.img_head}></div>
+            <div className={s.img_head}></div>
             <div className={s.avatar}>ava + descr</div>
         </div>
     );
