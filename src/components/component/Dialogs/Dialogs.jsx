@@ -19,9 +19,13 @@ const Dialogs = (props) => {
     let newMessage = React.createRef();
 
     let addMess = () => {
-        let message = newMessage.current.value
-        props.messages.addMessage(message);
+        props.messages.addMessage();
     };
+    
+    let checkMessage = () => {
+        let message = newMessage.current.value;
+        props.messages.checkOfArea(message);
+    }
 
     return (
         <div className={s.dialogs_wrapper}>
@@ -36,9 +40,11 @@ const Dialogs = (props) => {
                     <hr />
                     <div>
                         <textarea
+                            onChange={checkMessage}
                             ref={newMessage}
                             placeholder="Enter Message"
-                        ></textarea>
+                            value={props.messages.textOfArea}
+                        />
                         <div className={s.btn}>
                             <button onClick={addMess}>Enter</button>
                         </div>

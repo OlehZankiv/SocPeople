@@ -1,3 +1,5 @@
+import render from "../render";
+
 let state = {
     profile: {
         posts: {
@@ -5,10 +7,25 @@ let state = {
                 { id: 1, message: "Hello, It's my first props", likeCount: 6 },
                 { id: 2, message: "It's very funny!", likeCount: 11 },
             ],
-            addPost: (newMessage) => {
-                let newId = state.profile.posts.allPosts.length + 1;
-                let newPost = { id: newId, message: newMessage, likeCount: 0 };
-                state.profile.posts.allPosts.push(newPost);
+            postText: "",
+
+            addPost: () => {
+                if (state.profile.posts.postText) {
+                    let newId = state.profile.posts.allPosts.length + 1;
+                    let newPost = {
+                        id: newId,
+                        message: state.profile.posts.postText,
+                        likeCount: 0,
+                    };
+                    state.profile.posts.allPosts.push(newPost);
+                    state.profile.posts.postText = "";
+
+                    render(state);
+                }
+            },
+            checkPostText: (text) => {
+                state.profile.posts.postText = text;
+                render(state);
             },
         },
     },
@@ -63,11 +80,29 @@ let state = {
                     author: false,
                 },
             ],
-            addMessage: (message) => {
-                let idMessage = state.dialogs.messages.allMessages.length + 1;
-                let newMessage = {id: idMessage, message: message, avatar: "none", author: false}
-                
-                state.dialogs.messages.allMessages.push(newMessage);
+            textOfArea: "",
+
+            addMessage: () => {
+                if (state.dialogs.messages.textOfArea) {
+                    let idMessage =
+                        state.dialogs.messages.allMessages.length + 1;
+                    let newMessage = {
+                        id: idMessage,
+                        message: state.dialogs.messages.textOfArea,
+                        avatar:
+                            "https://i.pinimg.com/236x/0c/a9/e2/0ca9e28dcb12dc698cfd2beda6d6fa64--youtube.jpg",
+                        author: true,
+                    };
+
+                    state.dialogs.messages.allMessages.push(newMessage);
+                }
+                state.dialogs.messages.textOfArea = "";
+                render(state);
+            },
+
+            checkOfArea: (text) => {
+                state.dialogs.messages.textOfArea = text;
+                render(state);
             },
         },
     },

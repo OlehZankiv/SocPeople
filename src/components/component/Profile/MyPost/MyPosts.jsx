@@ -10,13 +10,22 @@ const MyPosts = (props) => {
     let linkTextArea = React.createRef();
 
     let addPost = () => {
-        props.posts.addPost(linkTextArea.current.value);
-    }
+        props.posts.addPost();
+    };
+
+    let writeNewPost = () => {
+        props.posts.checkPostText(linkTextArea.current.value);
+    };
 
     return (
         <div className={s.posts}>
             <div className={s.new_post}>
-                <textarea ref={linkTextArea} placeholder="Enter post"></textarea>
+                <textarea
+                    onChange={writeNewPost}
+                    ref={linkTextArea}
+                    placeholder="Enter post"
+                    value={props.posts.postText}
+                />
                 <div className={s.btn_ens}>
                     <button onClick={addPost}>SEND</button>
                 </div>
