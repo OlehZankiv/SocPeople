@@ -6,11 +6,26 @@
     color: white;
     font-size: 22px;
 }
-
 .friends img {
-    padding: 2px;
     border: 4px dotted white;
     border-radius: 100%;
+    padding: 2px;
     width: 55px;
     height: 55px;
+    border-radius: 100%;
+}
+.friends img:hover {
+    animation: rotate .4s;
+}
+
+@keyframes rotate {
+    from {
+        transform: rotate(0deg);
+    }
+    50% {
+        transform: rotate(10deg);
+    }
+    to {
+        transform: rotate(00deg);
+    }
 }

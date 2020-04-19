@@ -7,22 +7,22 @@ let state = {
             ],
             postText: "",
 
-            addPost: () => {
-                if (state.profile.posts.postText) {
-                    let newId = state.profile.posts.allPosts.length + 1;
+            addPost() {
+                if (this.postText) {
+                    let newId = this.allPosts.length + 1;
                     let newPost = {
                         id: newId,
-                        message: state.profile.posts.postText,
+                        message: this.postText,
                         likeCount: 0,
                     };
-                    state.profile.posts.allPosts.push(newPost);
-                    state.profile.posts.postText = "";
+                    this.allPosts.push(newPost);
+                    this.postText = "";
 
                     state.render();
                 }
             },
-            checkPostText: (text) => {
-                state.profile.posts.postText = text;
+            checkPostText(text) {
+                this.postText = text;
                 state.render();
             },
         },
@@ -80,26 +80,26 @@ let state = {
             ],
             textOfArea: "",
 
-            addMessage: () => {
-                if (state.dialogs.messages.textOfArea) {
+            addMessage() {
+                if (this.textOfArea) {
                     let idMessage =
-                        state.dialogs.messages.allMessages.length + 1;
+                        this.allMessages.length + 1;
                     let newMessage = {
                         id: idMessage,
-                        message: state.dialogs.messages.textOfArea,
+                        message: this.textOfArea,
                         avatar:
                             "https://i.pinimg.com/236x/0c/a9/e2/0ca9e28dcb12dc698cfd2beda6d6fa64--youtube.jpg",
                         author: true,
                     };
 
-                    state.dialogs.messages.allMessages.push(newMessage);
+                    this.allMessages.push(newMessage);
                 }
-                state.dialogs.messages.textOfArea = "";
+                this.textOfArea = "";
                 state.render();
             },
 
-            checkOfArea: (text) => {
-                state.dialogs.messages.textOfArea = text;
+            checkOfArea(text) {
+                this.textOfArea = text;
                 state.render(state);
             },
         },
@@ -124,10 +124,10 @@ let state = {
         },
     ],
 
-    render: () => {},
+    render() {},
 
-    subscribe: (observer) => {
-        state.render = observer;
+    subscribe(observer) {
+        this.render = observer;
     },
 };
 
