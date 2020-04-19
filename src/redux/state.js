@@ -1,5 +1,3 @@
-import render from "../render";
-
 let state = {
     profile: {
         posts: {
@@ -20,12 +18,12 @@ let state = {
                     state.profile.posts.allPosts.push(newPost);
                     state.profile.posts.postText = "";
 
-                    render(state);
+                    state.render();
                 }
             },
             checkPostText: (text) => {
                 state.profile.posts.postText = text;
-                render(state);
+                state.render();
             },
         },
     },
@@ -97,12 +95,12 @@ let state = {
                     state.dialogs.messages.allMessages.push(newMessage);
                 }
                 state.dialogs.messages.textOfArea = "";
-                render(state);
+                state.render();
             },
 
             checkOfArea: (text) => {
                 state.dialogs.messages.textOfArea = text;
-                render(state);
+                state.render(state);
             },
         },
     },
@@ -125,6 +123,12 @@ let state = {
             name: "Yana",
         },
     ],
+
+    render: () => {},
+
+    subscribe: (observer) => {
+        state.render = observer;
+    },
 };
 
 export default state;
