@@ -1,6 +1,7 @@
 import React from "react";
 import s from "./MyPosts.module.css";
 import Post from "./Post/Post";
+import { writeNewPostActionCreator, addPostActionCreator } from "../../../../redux/state";
 
 const MyPosts = (props) => {
     let posts = props.posts.allPosts.map((post) => (
@@ -10,18 +11,11 @@ const MyPosts = (props) => {
     let linkTextArea = React.createRef();
 
     let addPost = () => {
-        let action = {
-            type: "ADD-POST",
-        };
-        props.dispatch(action);
+        props.dispatch(addPostActionCreator());
     };
 
     let writeNewPost = () => {
-        let action = {
-            type: "CHECK-POST-TEXT",
-            text: linkTextArea.current.value,
-        };
-        props.dispatch(action);
+        props.dispatch(writeNewPostActionCreator(linkTextArea.current.value));
     };
 
     return (

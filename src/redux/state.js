@@ -1,3 +1,9 @@
+const ADD_MESSAGE = "ADD-MESSAGE";
+const CHECK_MESSAGE_TEXT = "CHECK-MESSAGE-TEXT";
+
+const ADD_POST = "ADD-POST";
+const CHECK_POST_TEXT = "CHECK-POST-TEXT";
+
 let store = {
     _state: {
         profile: {
@@ -99,11 +105,11 @@ let store = {
 
     dispatch(action) {
         switch (action.type) {
-            case "CHECK-POST-TEXT":
+            case CHECK_POST_TEXT:
                 this.getState().profile.posts.postText = action.text;
                 store._render();
                 break;
-            case "ADD-POST":
+            case ADD_POST:
                 if (this.getState().profile.posts.postText) {
                     let newId =
                         this.getState().profile.posts.allPosts.length + 1;
@@ -119,11 +125,11 @@ let store = {
                 }
                 break;
 
-            case "CHECK-MESSAGE-TEXT":
+            case CHECK_MESSAGE_TEXT:
                 this.getState().dialogs.messages.textOfArea = action.message;
                 store._render();
                 break;
-            case "ADD-MESSAGE":
+            case ADD_MESSAGE:
                 if (this.getState().dialogs.messages.textOfArea) {
                     let idMessage =
                         this.getState().dialogs.messages.allMessages.length + 1;
@@ -146,4 +152,15 @@ let store = {
     },
 };
 
+export const addMessActionCreator = () => ({ type: ADD_MESSAGE });
+export const checkMessageActionCreator = (text) => ({
+    type: CHECK_MESSAGE_TEXT,
+    message: text,
+});
+
+export const addPostActionCreator = () => ({ type: ADD_POST });
+export const writeNewPostActionCreator = (text) => ({
+    type: CHECK_POST_TEXT,
+    text: text,
+});
 export default store;

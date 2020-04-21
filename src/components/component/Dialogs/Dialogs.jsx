@@ -2,6 +2,7 @@ import React from "react";
 import s from "./Dialogs.module.css";
 import DialogItem from "./Dialog/DialogItem";
 import Message from "./Message/Message";
+import { checkMessageActionCreator, addMessActionCreator } from "../../../redux/state";
 
 const Dialogs = (props) => {
     let dialogItems = props.dialogs.map((d) => (
@@ -19,18 +20,11 @@ const Dialogs = (props) => {
     let newMessage = React.createRef();
 
     let addMess = () => {
-        let action = {
-            type: "ADD-MESSAGE",
-        };
-        props.dispatch(action);
+        props.dispatch(addMessActionCreator());
     };
 
     let checkMessage = () => {
-        let action = {
-            type: "CHECK-MESSAGE-TEXT",
-            message: newMessage.current.value,
-        };
-        props.dispatch(action);
+        props.dispatch(checkMessageActionCreator(newMessage.current.value));
     };
 
     return (
