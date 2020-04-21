@@ -19,13 +19,19 @@ const Dialogs = (props) => {
     let newMessage = React.createRef();
 
     let addMess = () => {
-        props.messages.addMessage();
+        let action = {
+            type: "ADD-MESSAGE",
+        };
+        props.dispatch(action);
     };
-    
+
     let checkMessage = () => {
-        let message = newMessage.current.value;
-        props.messages.checkOfArea(message);
-    }
+        let action = {
+            type: "CHECK-MESSAGE-TEXT",
+            message: newMessage.current.value,
+        };
+        props.dispatch(action);
+    };
 
     return (
         <div className={s.dialogs_wrapper}>

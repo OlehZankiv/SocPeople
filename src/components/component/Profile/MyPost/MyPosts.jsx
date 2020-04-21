@@ -10,11 +10,18 @@ const MyPosts = (props) => {
     let linkTextArea = React.createRef();
 
     let addPost = () => {
-        props.posts.addPost();
+        let action = {
+            type: "ADD-POST",
+        };
+        props.dispatch(action);
     };
 
     let writeNewPost = () => {
-        props.posts.checkPostText(linkTextArea.current.value);
+        let action = {
+            type: "CHECK-POST-TEXT",
+            text: linkTextArea.current.value,
+        };
+        props.dispatch(action);
     };
 
     return (

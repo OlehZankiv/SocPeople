@@ -11,25 +11,6 @@ let store = {
                     { id: 2, message: "It's very funny!", likeCount: 11 },
                 ],
                 postText: "",
-
-                addPost() {
-                    if (this.postText) {
-                        let newId = this.allPosts.length + 1;
-                        let newPost = {
-                            id: newId,
-                            message: this.postText,
-                            likeCount: 0,
-                        };
-                        this.allPosts.push(newPost);
-                        this.postText = "";
-
-                        store._render();
-                    }
-                },
-                checkPostText(text) {
-                    this.postText = text;
-                    store._render();
-                },
             },
         },
         dialogs: {
@@ -84,28 +65,6 @@ let store = {
                     },
                 ],
                 textOfArea: "",
-
-                addMessage() {
-                    if (this.textOfArea) {
-                        let idMessage = this.allMessages.length + 1;
-                        let newMessage = {
-                            id: idMessage,
-                            message: this.textOfArea,
-                            avatar:
-                                "https://i.pinimg.com/236x/0c/a9/e2/0ca9e28dcb12dc698cfd2beda6d6fa64--youtube.jpg",
-                            author: true,
-                        };
-
-                        this.allMessages.push(newMessage);
-                    }
-                    this.textOfArea = "";
-                    store._render();
-                },
-
-                checkOfArea(text) {
-                    this.textOfArea = text;
-                    store._render();
-                },
             },
         },
         friends: [
@@ -128,14 +87,62 @@ let store = {
             },
         ],
     },
+    _render() {},
+
     getState() {
         return this._state;
     },
 
-    _render() {},
-
     subscribe(observer) {
         this._render = observer;
+    },
+
+    dispatch(action) {
+        switch (action.type) {
+            case "CHECK-POST-TEXT":
+                this.getState().profile.posts.postText = action.text;
+                store._render();
+                break;
+            case "ADD-POST":
+                if (this.getState().profile.posts.postText) {
+                    let newId =
+                        this.getState().profile.posts.allPosts.length + 1;
+                    let newPost = {
+                        id: newId,
+                        message: this.getState().profile.posts.postText,
+                        likeCount: 0,
+                    };
+                    this.getState().profile.posts.allPosts.push(newPost);
+                    this.getState().profile.posts.postText = "";
+
+                    store._render();
+                }
+                break;
+
+            case "CHECK-MESSAGE-TEXT":
+                this.getState().dialogs.messages.textOfArea = action.message;
+                store._render();
+                break;
+            case "ADD-MESSAGE":
+                if (this.getState().dialogs.messages.textOfArea) {
+                    let idMessage =
+                        this.getState().dialogs.messages.allMessages.length + 1;
+                    let newMessage = {
+                        id: idMessage,
+                        message: this.getState().dialogs.messages.textOfArea,
+                        avatar:
+                            "https://i.pinimg.com/236x/0c/a9/e2/0ca9e28dcb12dc698cfd2beda6d6fa64--youtube.jpg",
+                        author: true,
+                    };
+
+                    this.getState().dialogs.messages.allMessages.push(
+                        newMessage
+                    );
+                }
+                this.getState().dialogs.messages.textOfArea = "";
+                store._render();
+                break;
+        }
     },
 };
 

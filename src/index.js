@@ -6,7 +6,10 @@ import App from "./App";
 import store from "./redux/state";
 
 let render = () => {
-    ReactDOM.render(<App state={store.getState()} />, document.getElementById("root"));
+    ReactDOM.render(
+        <App state={store.getState()} dispatch={store.dispatch.bind(store)} />,
+        document.getElementById("root")
+    );
 };
 
 store.subscribe(render);
