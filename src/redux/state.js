@@ -1,8 +1,6 @@
-const ADD_MESSAGE = "ADD-MESSAGE";
-const CHECK_MESSAGE_TEXT = "CHECK-MESSAGE-TEXT";
-
-const ADD_POST = "ADD-POST";
-const CHECK_POST_TEXT = "CHECK-POST-TEXT";
+import { profile_reducer } from "./profile_reducer";
+import { dialogs_reducer } from "./dialogs_reducer";
+import { friends_reducer } from "./friends_reducer";
 
 let store = {
     _state: {
@@ -104,63 +102,14 @@ let store = {
     },
 
     dispatch(action) {
-        switch (action.type) {
-            case CHECK_POST_TEXT:
-                this.getState().profile.posts.postText = action.text;
-                store._render();
-                break;
-            case ADD_POST:
-                if (this.getState().profile.posts.postText) {
-                    let newId =
-                        this.getState().profile.posts.allPosts.length + 1;
-                    let newPost = {
-                        id: newId,
-                        message: this.getState().profile.posts.postText,
-                        likeCount: 0,
-                    };
-                    this.getState().profile.posts.allPosts.push(newPost);
-                    this.getState().profile.posts.postText = "";
+        this.getState().profile = profile_reducer(this.getState().profile, action);
+        this.getState().dialogs = dialogs_reducer(this.getState().dialogs, action);
+        
+       console.log( this.getState().dialogs);
+        this.getState().friends = friends_reducer(this.getState().friends, action);
 
-                    store._render();
-                }
-                break;
-
-            case CHECK_MESSAGE_TEXT:
-                this.getState().dialogs.messages.textOfArea = action.message;
-                store._render();
-                break;
-            case ADD_MESSAGE:
-                if (this.getState().dialogs.messages.textOfArea) {
-                    let idMessage =
-                        this.getState().dialogs.messages.allMessages.length + 1;
-                    let newMessage = {
-                        id: idMessage,
-                        message: this.getState().dialogs.messages.textOfArea,
-                        avatar:
-                            "https://i.pinimg.com/236x/0c/a9/e2/0ca9e28dcb12dc698cfd2beda6d6fa64--youtube.jpg",
-                        author: true,
-                    };
-
-                    this.getState().dialogs.messages.allMessages.push(
-                        newMessage
-                    );
-                }
-                this.getState().dialogs.messages.textOfArea = "";
-                store._render();
-                break;
-        }
-    },
+        this._render();
+    }
 };
 
-export const addMessActionCreator = () => ({ type: ADD_MESSAGE });
-export const checkMessageActionCreator = (text) => ({
-    type: CHECK_MESSAGE_TEXT,
-    message: text,
-});
-
-export const addPostActionCreator = () => ({ type: ADD_POST });
-export const writeNewPostActionCreator = (text) => ({
-    type: CHECK_POST_TEXT,
-    text: text,
-});
 export default store;
