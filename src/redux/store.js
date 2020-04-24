@@ -1,6 +1,6 @@
 import { profile_reducer } from "./profile_reducer";
 import { dialogs_reducer } from "./dialogs_reducer";
-import { friends_reducer } from "./friends_reducer";
+import { friends_reducer } from "./navbar_reducer";
 
 let store = {
     _state: {
@@ -71,7 +71,7 @@ let store = {
                 textOfArea: "",
             },
         },
-        friends: [
+        navbar: [
             {
                 id: 1,
                 img:
@@ -104,9 +104,7 @@ let store = {
     dispatch(action) {
         this.getState().profile = profile_reducer(this.getState().profile, action);
         this.getState().dialogs = dialogs_reducer(this.getState().dialogs, action);
-        
-       console.log( this.getState().dialogs);
-        this.getState().friends = friends_reducer(this.getState().friends, action);
+        this.getState().navbar = friends_reducer(this.getState().navbar, action);
 
         this._render();
     }

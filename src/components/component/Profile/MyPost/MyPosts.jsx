@@ -4,34 +4,31 @@ import Post from "./Post/Post";
 import { writeNewPostActionCreator, addPostActionCreator } from "../../../../redux/profile_reducer";
 
 const MyPosts = (props) => {
-    let posts = props.posts.allPosts.map((post) => (
-        <Post message={post.message} likeCount={post.likeCount} />
-    ));
-
+    
     let linkTextArea = React.createRef();
+    let writePost = () => {
+        let text = linkTextArea.current.value;
+        props.writePost(text);
+    }
 
     let addPost = () => {
-        props.dispatch(addPostActionCreator());
-    };
-
-    let writeNewPost = () => {
-        props.dispatch(writeNewPostActionCreator(linkTextArea.current.value));
-    };
+        props.addPost();
+    }
 
     return (
         <div className={s.posts}>
             <div className={s.new_post}>
                 <textarea
-                    onChange={writeNewPost}
+                    onChange={writePost}
                     ref={linkTextArea}
                     placeholder="Enter post"
-                    value={props.posts.postText}
+                    value={props.postValue}
                 />
                 <div className={s.btn_ens}>
                     <button onClick={addPost}>SEND</button>
                 </div>
             </div>
-            <div className={s.old_posts}>{posts}</div>
+            <div className={s.old_posts}>{props.posts}</div>
         </div>
     );
 };

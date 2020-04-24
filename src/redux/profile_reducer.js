@@ -7,7 +7,21 @@ export const writeNewPostActionCreator = (text) => ({
     text: text,
 });
 
-export const profile_reducer = (state, action) => {
+let initialState = {
+    posts: {
+        allPosts: [
+            {
+                id: 1,
+                message: "Hello, It's my first props",
+                likeCount: 6,
+            },
+            { id: 2, message: "It's very funny!", likeCount: 11 },
+        ],
+        postText: "",
+    },
+};
+
+export const profile_reducer = (state = initialState, action) => {
     switch (action.type) {
         case CHECK_POST_TEXT:
             state.posts.postText = action.text;
