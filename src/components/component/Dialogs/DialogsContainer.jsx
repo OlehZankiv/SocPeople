@@ -6,43 +6,35 @@ import {
     addMessActionCreator,
 } from "../../../redux/dialogs_reducer";
 import Dialogs from "./Dialogs";
-import StoreContext from "../../../StoreContext";
+import { connect } from "react-redux";
 
-const DialogsContainer = () => {
-    return (
-        <StoreContext.Consumer>
-            {(store) => {
-                let state = store.getState().dialogs;
-                let dialogs = state.dialogs.map((d) => (
-                    <DialogItem id={d.id} name={d.name} avatar={d.avatar} />
-                ));
 
-                let messages = state.messages.allMessages.map((message) => (
-                    <Message
-                        message={message.message}
-                        avatar={message.avatar}
-                        author={message.author}
-                    />
-                ));
+let MapStateToProps = (state) => {
+    let dialogs = state.dialogs.dialogs.map((d) => (
+        <DialogItem id={d.id} name={d.name} avatar={d.avatar} />
+    ));
 
-                let addMessage = () => {
-                    store.dispatch(addMessActionCreator());
-                };
+    let messages = state.dialogs.messages.allMessages.map((message) => (
+        <Message
+            message={message.message}
+            avatar={message.avatar}
+            author={message.author}
+        />
+    ));
 
-                let checkMessage = (text) => {
-                    store.dispatch(checkMessageActionCreator(text));
-                };
-                return (
-                    <Dialogs
-                        dialogs={dialogs}
-                        messages={messages}
-                        addMessage={addMessage}
-                        checkMessage={checkMessage}
-                    />
-                );
-            }}
-        </StoreContext.Consumer>
-    );
+    return {
+        dialogs: dialogs,
+        messages: messages,
+    };
 };
+
+let MapDispatchToProps = (dispatch) => {
+    return {
+        addMessage: () => dispatch(addMessActionCreator()),
+        checkMessage: (text) => dispatch(checkMessageActionCreator(text)),
+    };
+};
+
+const DialogsContainer = connect(MapStateToProps, MapDispatchToProps)(Dialogs);
 
 export default DialogsContainer;

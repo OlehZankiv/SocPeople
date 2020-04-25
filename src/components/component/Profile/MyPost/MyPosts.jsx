@@ -1,8 +1,5 @@
 import React from "react";
 import s from "./MyPosts.module.css";
-import Post from "./Post/Post";
-import { writeNewPostActionCreator, addPostActionCreator } from "../../../../redux/profile_reducer";
-
 const MyPosts = (props) => {
     
     let linkTextArea = React.createRef();
