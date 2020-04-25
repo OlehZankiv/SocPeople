@@ -5,27 +5,33 @@ import {
     addPostActionCreator,
 } from "../../../../redux/profile_reducer";
 import MyPosts from "./MyPosts";
+import StoreContext from "../../../../StoreContext";
 
-const MyPostsContainer = (props) => {
-    let state = props.store.getState();
-    let posts = state.profile.posts.allPosts.map((post) => (
-        <Post message={post.message} likeCount={post.likeCount} />
-    ));
-    let addPost = () => {
-        props.store.dispatch(addPostActionCreator());
-    };
-
-    let writePost = (text) => {
-        props.store.dispatch(writeNewPostActionCreator(text));
-    };
-
+const MyPostsContainer = () => {
     return (
-        <MyPosts
-            posts={posts}
-            addPost={addPost}
-            writePost={writePost}
-            postValue={state.profile.posts.postText}
-        />
+        <StoreContext.Consumer>
+            {(store) => {
+                let state = store.getState().profile;
+                let posts = state.posts.allPosts.map((post) => (
+                    <Post message={post.message} likeCount={post.likeCount} />
+                ));
+                let addPost = () => {
+                    store.dispatch(addPostActionCreator());
+                };
+
+                let writePost = (text) => {
+                    store.dispatch(writeNewPostActionCreator(text));
+                };
+                return (
+                    <MyPosts
+                        posts={posts}
+                        postValue={state.posts.postText}
+                        addPost={addPost}
+                        writePost={writePost}
+                    />
+                );
+            }}
+        </StoreContext.Consumer>
     );
 };
 
