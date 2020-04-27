@@ -8,10 +8,9 @@ import {
 import Dialogs from "./Dialogs";
 import { connect } from "react-redux";
 
-
 let MapStateToProps = (state) => {
     let dialogs = state.dialogs.dialogs.map((d) => (
-        <DialogItem id={d.id} name={d.name} avatar={d.avatar} />
+        <DialogItem id={d.id} name={d.name} avatar={d.avatar} key={d.id}/>
     ));
 
     let messages = state.dialogs.messages.allMessages.map((message) => (
@@ -19,12 +18,14 @@ let MapStateToProps = (state) => {
             message={message.message}
             avatar={message.avatar}
             author={message.author}
+            key={message.id}
         />
     ));
 
     return {
         dialogs: dialogs,
         messages: messages,
+        textOfArea: state.dialogs.messages.textOfArea,
     };
 };
 

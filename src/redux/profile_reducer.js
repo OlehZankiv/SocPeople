@@ -22,11 +22,14 @@ let initialState = {
 };
 
 export const profile_reducer = (state = initialState, action) => {
+    let stateCopy;
     switch (action.type) {
         case CHECK_POST_TEXT:
-            state.posts.postText = action.text;
-            break;
+            stateCopy = { ...state };
+            stateCopy.posts.postText = action.text;
+            return stateCopy;
         case ADD_POST:
+            stateCopy = { ...state };
             if (state.posts.postText) {
                 let newId = state.posts.allPosts.length + 1;
                 let newPost = {
@@ -34,11 +37,13 @@ export const profile_reducer = (state = initialState, action) => {
                     message: state.posts.postText,
                     likeCount: 0,
                 };
-                state.posts.allPosts.push(newPost);
-                state.posts.postText = "";
-            }
-            break;
-    }
 
-    return state;
+                stateCopy.posts = { ...state.posts };
+                stateCopy.posts.allPosts.push(newPost);
+                stateCopy.posts.postText = "";
+            }
+            return stateCopy;
+        default:
+            return state;
+    }
 };

@@ -62,10 +62,12 @@ let initialState = {
 };
 
 export const dialogs_reducer = (state = initialState, action) => {
+    let stateCopy;
     switch (action.type) {
         case CHECK_MESSAGE_TEXT:
-            state.messages.textOfArea = action.message;
-            break;
+            stateCopy = { ...state };
+            stateCopy.messages.textOfArea = action.message;
+            return stateCopy;
         case ADD_MESSAGE:
             if (state.messages.textOfArea) {
                 let idMessage = state.messages.allMessages.length + 1;
@@ -76,12 +78,15 @@ export const dialogs_reducer = (state = initialState, action) => {
                         "https://i.pinimg.com/236x/0c/a9/e2/0ca9e28dcb12dc698cfd2beda6d6fa64--youtube.jpg",
                     author: true,
                 };
-
-                state.messages.allMessages.push(newMessage);
-                state.messages.textOfArea = "";
+                stateCopy = { ...state };
+                stateCopy.messages.allMessages = [
+                    ...state.messages.allMessages,
+                ];
+                stateCopy.messages.allMessages.push(newMessage);
+                stateCopy.messages.textOfArea = "";
             }
-            break;
+            return stateCopy;
+        default:
+            return state;
     }
-
-    return state;
 };

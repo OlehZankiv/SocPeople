@@ -27,7 +27,7 @@ const Dialogs = (props) => {
                             onChange={checkMessage}
                             ref={newMessage}
                             placeholder="Enter Message"
-                            value={props.messages.textOfArea}
+                            value={props.textOfArea}
                         />
                         <div className={s.btn}>
                             <button onClick={addMessage}>Enter</button>

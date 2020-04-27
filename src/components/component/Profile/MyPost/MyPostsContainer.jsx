@@ -9,7 +9,7 @@ import { connect } from "react-redux";
 
 let MapStateToProps = (state) => {
     let posts = state.profile.posts.allPosts.map((post) => (
-        <Post message={post.message} likeCount={post.likeCount} />
+        <Post message={post.message} likeCount={post.likeCount} key={post.id}/>
     ));
 
     return {

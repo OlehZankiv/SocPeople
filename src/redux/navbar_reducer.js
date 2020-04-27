@@ -19,5 +19,6 @@ let initialState = [
     ];
 
 export const navbar_reducer = (state = initialState, action) => {
+    let stateCopy;
     return state;
 };
