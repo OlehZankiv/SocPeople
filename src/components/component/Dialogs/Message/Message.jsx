@@ -2,25 +2,15 @@ import React from "react";
 import s from "./Message.module.css";
 
 const Message = (props) => {
-    if (props.author) {
-        return (
-            <div className={s.messageWrapper + " " + s.right}>
-                <div className={s.message}>
-                    {props.message}
-                    <img src={props.avatar} alt="avatar" />
-                </div>
+    return (
+        <div className={s.messageWrapper + (props.author ? " " + s.right : "")}>
+            <div className={s.message}>
+                {props.author ? props.message : ""}
+                <img src={props.avatar} alt="avatar" />
+                {!props.author ? props.message : ""}
             </div>
-        );
-    } else {
-        return (
-            <div className={s.messageWrapper}>
-                <div className={s.message}>
-                    <img src={props.avatar} alt="avatar" />
-                    {props.message}
-                </div>
-            </div>
-        );
-    }
+        </div>
+    );
 };
 
 export default Message;
