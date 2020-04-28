@@ -1,6 +1,6 @@
 import React from "react";
 import s from "./User.module.css";
-
+import user from "../../../../assets/images/user.png";
 let User = (props) => {
     let follow = () => {
         props.follow(props.id);
@@ -13,11 +13,14 @@ let User = (props) => {
         <div>
             <div className={s.wrapperUser}>
                 <div className={s.avatar}>
-                    <img src={props.avatar} alt="avatar" />
+                    <img
+                        src={props.photos.small ? props.photos.small : user}
+                        alt="avatar"
+                    />
                     {props.followed ? (
-                        <button onClick={unFollow}>FOLLOW</button>
+                        <button onClick={unFollow}>UNFOLLOW</button>
                     ) : (
-                        <button onClick={follow}>UNFOLLOW</button>
+                        <button onClick={follow}>FOLLOW</button>
                     )}
                 </div>
 
@@ -26,9 +29,9 @@ let User = (props) => {
                     <p className={s.status}>{props.status}</p>
                     <div className={s.location}>
                         <div className={s.country}>
-                            {props.location.country}
+                            {"props.location.country"}
                         </div>
-                        <div className={s.city}>{props.location.city}</div>
+                        <div className={s.city}>{"props.location.city"}</div>
                     </div>
                 </div>
             </div>
