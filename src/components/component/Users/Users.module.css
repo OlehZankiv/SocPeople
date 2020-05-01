@@ -5,3 +5,25 @@
     border: 2px solid #3e3e3e;
     padding: 20px;
 }
+
+.activeClass {
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.totalCountWrapper span:hover {
+    text-decoration: underline;
+    transform: scale(1.35);
+}
+.totalCountWrapper span {
+    display: block;
+    transition: 0.2s all;
+    cursor: pointer;
+    margin: 0 5px 0 5px;
+}
+.totalCountWrapper {
+    display: flex;
+    margin-left: 15px;
+    width: 700px;
+    overflow: hidden;
+}

@@ -9,6 +9,7 @@ let User = (props) => {
     let unFollow = () => {
         props.unFollow(props.id);
     };
+    
     return (
         <div>
             <div className={s.wrapperUser}>
