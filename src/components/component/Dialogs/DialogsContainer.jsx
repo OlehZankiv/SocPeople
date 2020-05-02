@@ -2,15 +2,15 @@ import React from "react";
 import DialogItem from "./Dialog/DialogItem";
 import Message from "./Message/Message";
 import {
-    checkMessageActionCreator,
-    addMessActionCreator,
+    checkMessageActionCreator as checkMessage,
+    addMessActionCreator as addMessage,
 } from "../../../redux/dialogs_reducer";
 import Dialogs from "./Dialogs";
 import { connect } from "react-redux";
 
 let MapStateToProps = (state) => {
     let dialogs = state.dialogs.dialogs.map((d) => (
-        <DialogItem id={d.id} name={d.name} avatar={d.avatar} key={d.id}/>
+        <DialogItem id={d.id} name={d.name} avatar={d.avatar} key={d.id} />
     ));
 
     let messages = state.dialogs.messages.allMessages.map((message) => (
@@ -29,13 +29,9 @@ let MapStateToProps = (state) => {
     };
 };
 
-let MapDispatchToProps = (dispatch) => {
-    return {
-        addMessage: () => dispatch(addMessActionCreator()),
-        checkMessage: (text) => dispatch(checkMessageActionCreator(text)),
-    };
-};
-
-const DialogsContainer = connect(MapStateToProps, MapDispatchToProps)(Dialogs);
+const DialogsContainer = connect(MapStateToProps, {
+    addMessage,
+    checkMessage,
+})(Dialogs);
 
 export default DialogsContainer;

@@ -1,15 +1,15 @@
 import React from "react";
 import Post from "./Post/Post";
 import {
-    writeNewPostActionCreator,
-    addPostActionCreator,
+    writeNewPostActionCreator as writePost,
+    addPostActionCreator as addPost,
 } from "../../../../redux/profile_reducer";
 import MyPosts from "./MyPosts";
 import { connect } from "react-redux";
 
 let MapStateToProps = (state) => {
     let posts = state.profile.posts.allPosts.map((post) => (
-        <Post message={post.message} likeCount={post.likeCount} key={post.id}/>
+        <Post message={post.message} likeCount={post.likeCount} key={post.id} />
     ));
 
     return {
@@ -18,13 +18,9 @@ let MapStateToProps = (state) => {
     };
 };
 
-let MapDispatchToProps = (dispatch) => {
-    return {
-        addPost: () => dispatch(addPostActionCreator()),
-        writePost: (text) => dispatch(writeNewPostActionCreator(text)),
-    };
-};
-
-const MyPostsContainer = connect(MapStateToProps, MapDispatchToProps)(MyPosts);
+const MyPostsContainer = connect(MapStateToProps, {
+    addPost,
+    writePost,
+})(MyPosts);
 
 export default MyPostsContainer;
