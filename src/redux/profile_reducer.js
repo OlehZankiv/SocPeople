@@ -1,11 +1,6 @@
 const ADD_POST = "ADD-POST";
 const CHECK_POST_TEXT = "CHECK-POST-TEXT";
-
-export const addPostActionCreator = () => ({ type: ADD_POST });
-export const writeNewPostActionCreator = (text) => ({
-    type: CHECK_POST_TEXT,
-    text: text,
-});
+const SET_USER_PROFILE = "SET_USER_PROFILE";
 
 let initialState = {
     posts: {
@@ -19,6 +14,7 @@ let initialState = {
         ],
         postText: "",
     },
+    profile: null,
 };
 
 export const profile_reducer = (state = initialState, action) => {
@@ -45,7 +41,22 @@ export const profile_reducer = (state = initialState, action) => {
                     },
                 };
             }
+        case SET_USER_PROFILE:
+            return {
+                ...state,
+                profile: action.profile,
+            };
         default:
             return state;
     }
 };
+
+export const addPostActionCreator = () => ({ type: ADD_POST });
+export const writeNewPostActionCreator = (text) => ({
+    type: CHECK_POST_TEXT,
+    text: text,
+});
+export const setUserProfile = (profile) => ({
+    type: SET_USER_PROFILE,
+    profile,
+});
