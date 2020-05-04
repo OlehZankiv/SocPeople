@@ -10,22 +10,29 @@ import {
     changeFetchingAC as changeFetching,
 } from "../../../redux/users_reducer";
 import User from "./User/User";
-import * as axios from "axios";
 import Loader from "../common/Loader";
+import { userAPI } from "../../../api/api";
 
 class UsersApi extends React.Component {
     componentDidMount() {
         this.props.changeFetching(true);
-        axios
-            .get(
-                `https://social-network.samuraijs.com/api/1.0/users?page=${this.props.currentPage}&count=${this.props.pageSize}`
-            )
-            .then((response) => {
+        userAPI.getUsers(this.props.currentPage, this.props.pageSize).then(
+            (data) => {
                 this.props.changeFetching(false);
-                this.props.setUsers(response.data.items);
-                this.props.setTotalUsersCount(response.data.totalCount);
-            });
+                this.props.setUsers(data.items);
+                this.props.setTotalUsersCount(data.totalCount);
+            }
+        );
     }
+
+    changePage = (page) => {
+        this.props.changePage(page);
+        this.props.changeFetching(true);
+        userAPI.getUsers(page, this.props.pageSize).then((data) => {
+            this.props.changeFetching(false);
+            this.props.setUsers(data.items);
+        });
+    };
 
     users = () =>
         this.props.users.map((user) => (
@@ -42,30 +49,20 @@ class UsersApi extends React.Component {
             ></User>
         ));
 
-    changePage = (page) => {
-        this.props.changePage(page);
-        this.props.changeFetching(true);
-        axios
-            .get(
-                `https://social-network.samuraijs.com/api/1.0/users?page=${page}&count=${this.props.pageSize}`
-            )
-            .then((response) => {
-                this.props.changeFetching(false);
-                this.props.setUsers(response.data.items);
-            });
-    };
-
     render() {
         return (
             <div>
-                {this.props.isFetching ? <Loader /> : ""}
-                <Users
-                    totalUsersCount={this.props.totalUsersCount}
-                    pageSize={this.props.pageSize}
-                    currentPage={this.props.currentPage}
-                    users={this.users}
-                    changePage={this.changePage}
-                />
+                {this.props.isFetching ? (
+                    <Loader />
+                ) : (
+                    <Users
+                        totalUsersCount={this.props.totalUsersCount}
+                        pageSize={this.props.pageSize}
+                        currentPage={this.props.currentPage}
+                        users={this.users}
+                        changePage={this.changePage}
+                    />
+                )}
             </div>
         );
     }
