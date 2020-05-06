@@ -8,6 +8,7 @@ import {
     setTotalUsersCountAC as setTotalUsersCount,
     changePageAC as changePage,
     changeFetchingAC as changeFetching,
+    followInLoad,
 } from "../../../redux/users_reducer";
 import User from "./User/User";
 import Loader from "../common/Loader";
@@ -16,13 +17,13 @@ import { userAPI } from "../../../api/api";
 class UsersApi extends React.Component {
     componentDidMount() {
         this.props.changeFetching(true);
-        userAPI.getUsers(this.props.currentPage, this.props.pageSize).then(
-            (data) => {
+        userAPI
+            .getUsers(this.props.currentPage, this.props.pageSize)
+            .then((data) => {
                 this.props.changeFetching(false);
                 this.props.setUsers(data.items);
                 this.props.setTotalUsersCount(data.totalCount);
-            }
-        );
+            });
     }
 
     changePage = (page) => {
@@ -46,6 +47,9 @@ class UsersApi extends React.Component {
                 location={user.location}
                 follow={this.props.follow}
                 unFollow={this.props.unFollow}
+                followInLoad={this.props.followInLoad}
+                isLoad={this.props.isLoad}
+                followInLoadId={this.props.followInLoadId}
             ></User>
         ));
 
@@ -75,6 +79,8 @@ let MapStateToProps = (state) => {
         totalUsersCount: state.usersPage.totalUsersCount,
         currentPage: state.usersPage.currentPage,
         isFetching: state.usersPage.isFetching,
+        isLoad: state.usersPage.followInLoad,
+        followInLoadId: state.usersPage.followInLoadId,
     };
 };
 
@@ -85,4 +91,5 @@ export default connect(MapStateToProps, {
     setTotalUsersCount,
     changePage,
     changeFetching,
+    followInLoad,
 })(UsersApi);
