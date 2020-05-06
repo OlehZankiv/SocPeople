@@ -1,3 +1,5 @@
+import { profileAPI } from "../api/api";
+
 const ADD_POST = "ADD-POST";
 const CHECK_POST_TEXT = "CHECK-POST-TEXT";
 const SET_USER_PROFILE = "SET_USER_PROFILE";
@@ -56,7 +58,16 @@ export const writeNewPostActionCreator = (text) => ({
     type: CHECK_POST_TEXT,
     text: text,
 });
-export const setUserProfile = (profile) => ({
+export const setUserProfileAC = (profile) => ({
     type: SET_USER_PROFILE,
     profile,
 });
+
+export const setUserProfile = (userId) => (dispatch) => {
+    if (!userId) {
+        userId = 2;
+    }
+    profileAPI.getUser(userId).then((data) => {
+        dispatch(setUserProfile(data));
+    });
+};

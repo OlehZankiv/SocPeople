@@ -2,37 +2,22 @@ import React from "react";
 import { connect } from "react-redux";
 import Users from "./Users";
 import {
-    followAC as follow,
-    unFollowAC as unFollow,
-    setUsersAC as setUsers,
     setTotalUsersCountAC as setTotalUsersCount,
     changePageAC as changePage,
-    changeFetchingAC as changeFetching,
-    followInLoad,
+    setUsers,
+    follow,
+    unFollow,
 } from "../../../redux/users_reducer";
 import User from "./User/User";
 import Loader from "../common/Loader";
-import { userAPI } from "../../../api/api";
 
 class UsersApi extends React.Component {
     componentDidMount() {
-        this.props.changeFetching(true);
-        userAPI
-            .getUsers(this.props.currentPage, this.props.pageSize)
-            .then((data) => {
-                this.props.changeFetching(false);
-                this.props.setUsers(data.items);
-                this.props.setTotalUsersCount(data.totalCount);
-            });
+        this.props.setUsers(this.props.currentPage, this.props.pageSize);
     }
 
     changePage = (page) => {
-        this.props.changePage(page);
-        this.props.changeFetching(true);
-        userAPI.getUsers(page, this.props.pageSize).then((data) => {
-            this.props.changeFetching(false);
-            this.props.setUsers(data.items);
-        });
+        this.props.setUsers(page, this.props.pageSize);
     };
 
     users = () =>
@@ -47,7 +32,6 @@ class UsersApi extends React.Component {
                 location={user.location}
                 follow={this.props.follow}
                 unFollow={this.props.unFollow}
-                followInLoad={this.props.followInLoad}
                 isLoad={this.props.isLoad}
                 followInLoadId={this.props.followInLoadId}
             ></User>
@@ -90,6 +74,4 @@ export default connect(MapStateToProps, {
     setUsers,
     setTotalUsersCount,
     changePage,
-    changeFetching,
-    followInLoad,
 })(UsersApi);

@@ -1,3 +1,5 @@
+import { userAPI } from "../api/api";
+
 const FOLLOW = "FOLLOW";
 const UN_FOLLOW = "UN_FOLLOW";
 const SET_USERS = "SET_USERS";
@@ -48,7 +50,11 @@ export const users_reducers = (state = initialState, action) => {
         case CHANGE_FETCH:
             return { ...state, isFetching: action.isFetching };
         case FOLLOW_IN_LOADING:
-            return { ...state, followInLoad: action.isLoad, followInLoadId: action.userId };
+            return {
+                ...state,
+                followInLoad: action.isLoad,
+                followInLoadId: action.userId,
+            };
 
         default:
             return state;
@@ -75,3 +81,28 @@ export const setTotalUsersCountAC = (totalCount) => ({
     type: SET_TOTAL_USERS_COUNT,
     totalCount,
 });
+
+export const setUsers = (currentPage, pageSize) => (dispatch) => {
+    dispatch(changeFetchingAC(true));
+    userAPI.getUsers(currentPage, pageSize).then((data) => {
+        dispatch(changeFetchingAC(false));
+        dispatch(setUsersAC(data.items));
+        dispatch(setTotalUsersCountAC(data.totalCount));
+    });
+};
+
+export const follow = (id) => (dispatch) => {
+    dispatch(followInLoad(true, id));
+    userAPI.follow(id).then((response) => {
+        dispatch(follow(id));
+        dispatch(followInLoad(id));
+    });
+};
+
+export const unFollow = (id) => (dispatch) => {
+    dispatch(followInLoad(true, id));
+    userAPI.unFollow(id).then((response) => {
+        dispatch(unFollow(id));
+        dispatch(followInLoad(false));
+    });
+};

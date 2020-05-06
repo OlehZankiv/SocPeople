@@ -2,23 +2,14 @@ import React from "react";
 import s from "./User.module.css";
 import user from "../../../../assets/images/user.png";
 import { NavLink } from "react-router-dom";
-import { userAPI } from "../../../../api/api";
 
 let User = (props) => {
     let follow = () => {
-        props.followInLoad(true, props.id);
-        userAPI.follow(props.id).then((response) => {
-            props.follow(props.id);
-            props.followInLoad(false);
-        });
+        props.follow(props.id);
     };
 
     let unFollow = () => {
-        props.followInLoad(true, props.id);
-        userAPI.unFollow(props.id).then((response) => {
-            props.unFollow(props.id);
-            props.followInLoad(false);
-        });
+        props.unFollow(props.id);
     };
 
     return (
@@ -32,14 +23,14 @@ let User = (props) => {
                         />
                     </NavLink>
                     {props.followed ? (
-                        (props.isLoad && props.followInLoadId == props.id) ? (
+                        props.isLoad && props.followInLoadId == props.id ? (
                             <button disabled onClick={unFollow}>
                                 UNFOLLOW
                             </button>
                         ) : (
                             <button onClick={unFollow}>UNFOLLOW</button>
                         )
-                    ) : (props.isLoad && props.followInLoadId == props.id) ? (
+                    ) : props.isLoad && props.followInLoadId == props.id ? (
                         <button disabled onClick={follow}>
                             FOLLOW
                         </button>
