@@ -10,6 +10,7 @@ let MapStateToProps = (state) => {
 
     return {
         friends: friends,
+        isAuth: state.auth.isAuth,
     };
 };
 

@@ -3,10 +3,13 @@
 }
 
 .friendsWrapper {
+    color: white;
+    font-size: 18px;
+    text-transform: uppercase;
     display: flex;
     justify-content: space-around;
     align-items: center;
-    padding: 0 15px 0 10px !important;
+    padding: 0 15px 5px 10px !important;
 }
 
 .wrappH {
