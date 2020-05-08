@@ -2,6 +2,7 @@ import React from "react";
 import s from "./ProfileInfo.module.css";
 import Loader from "../../common/Loader";
 import user from "../../../../assets/images/user.png";
+import Status from "./Status/Status";
 
 const ProfileInfo = (props) => {
     if (!props.profile) {
@@ -39,7 +40,7 @@ const ProfileInfo = (props) => {
                     )}
                     <div className={s.wrapperName}>
                         <div className={s.name}>{props.profile.fullName}</div>
-                        <div className={s.status}>{props.profile.aboutMe}</div>
+                        <Status status={props.profile.aboutMe} />
                     </div>
                 </div>
             </div>
