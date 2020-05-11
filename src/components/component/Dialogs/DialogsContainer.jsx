@@ -27,11 +27,10 @@ let MapStateToProps = (state) => {
     return {
         dialogs: dialogs,
         messages: messages,
-        textOfArea: state.dialogs.messages.textOfArea,
     };
 };
 
 export default compose(
     withAuthRedirect,
-    connect(MapStateToProps, { addMessage, checkMessage })
+    connect(MapStateToProps, { addMessage })
 )(Dialogs);

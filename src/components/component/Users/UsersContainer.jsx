@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import Users from "./Users";
 import {
     setTotalUsersCountAC as setTotalUsersCount,
-    changePageAC as changePage,
+    changePageAC as changeCurrentPage,
     setUsers,
     follow,
     unFollow,
@@ -18,6 +18,7 @@ class UsersApi extends React.Component {
 
     changePage = (page) => {
         this.props.setUsers(page, this.props.pageSize);
+        this.props.changeCurrentPage(page);
     };
 
     users = () =>
@@ -73,5 +74,5 @@ export default connect(MapStateToProps, {
     unFollow,
     setUsers,
     setTotalUsersCount,
-    changePage,
+    changeCurrentPage,
 })(UsersApi);

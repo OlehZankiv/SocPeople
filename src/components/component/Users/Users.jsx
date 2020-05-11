@@ -6,11 +6,9 @@ let Users = (props) => {
     for (let i = 0; i < pages; i++) {
         allPages[i] = i + 1;
     }
-
     allPages = allPages.map((page, i) => (
-        <div className={s.activeWrapper}>
+        <div key={i} className={s.activeWrapper}>
             <span
-                key={i}
                 onClick={() => props.changePage(page)}
                 className={props.currentPage == page ? s.activeClass : ""}
             >

@@ -1,30 +1,31 @@
 import React from "react";
 import s from "./MyPosts.module.css";
-const MyPosts = (props) => {
-    
-    let linkTextArea = React.createRef();
-    let writePost = () => {
-        let text = linkTextArea.current.value;
-        props.writePost(text);
-    }
+import { reduxForm, Field } from "redux-form";
+import { maxLength } from "../../../../utils/validators/validators";
+import { Textarea } from "../../common/Fields/Field";
 
-    let addPost = () => {
-        props.addPost();
-    }
+let maxLengthValidate = maxLength(500)
+const PostForm = (props) => {
+    return (
+        <form onSubmit={props.handleSubmit} className={s.new_post}>
+            <Field validate={[maxLengthValidate]} name="post" component={Textarea} placeholder="Enter post" />
+            <div className={s.btn_ens}>
+                <button>SEND</button>
+            </div>
+        </form>
+    );
+};
+
+const PostReduxForm = reduxForm({ form: "postForm" })(PostForm);
+
+const MyPosts = (props) => {
+    let addPost = (formData) => {
+        props.addPost(formData.post);
+    };
 
     return (
         <div className={s.posts}>
-            <div className={s.new_post}>
-                <textarea
-                    onChange={writePost}
-                    ref={linkTextArea}
-                    placeholder="Enter post"
-                    value={props.postValue}
-                />
-                <div className={s.btn_ens}>
-                    <button onClick={addPost}>SEND</button>
-                </div>
-            </div>
+            <PostReduxForm onSubmit={addPost} />
             <div className={s.old_posts}>{props.posts}</div>
         </div>
     );

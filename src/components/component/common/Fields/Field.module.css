@@ -1,0 +1,36 @@
+/*TEXTAREAS*/
+.errorField {
+    color: rgb(184, 184, 184);
+    border-color: red !important;
+}
+
+.errorInfo {
+    z-index: 100;
+    width: 100%;
+    color: rgb(255, 128, 128);
+}
+
+.textAreaWrapper textarea {
+    outline: none;
+    margin-top: 6px;
+}
+
+.textAreaWrapper {
+    margin-top: 15px;
+}
+
+/*INPUTS*/
+.inputWrapper {
+    position: relative;
+}
+
+.inputWrapper input {
+    outline: none;
+    margin-top: 6px;
+}
+.inputWrapper span.errorInfo {
+    position: absolute;
+    left: calc(-100% + 10px);
+    top: 50%;
+    transform: translateY(-50%);
+}

@@ -1,15 +1,32 @@
 import React from "react";
 import s from "./Dialogs.module.css";
-import { Redirect } from "react-router-dom";
+import { reduxForm, Field } from "redux-form";
+import { maxLength } from "../../../utils/validators/validators";
+import { Textarea } from "../common/Fields/Field";
+
+let maxLength150 = maxLength(1000);
+
+const AddMessageForm = (props) => {
+    return (
+        <form onSubmit={props.handleSubmit}>
+            <Field
+                component={Textarea}
+                name="message"
+                placeholder="Enter Message"
+                validate={[maxLength150]}
+            />
+            <div className={s.btn}>
+                <button>Enter</button>
+            </div>
+        </form>
+    );
+};
+
+const DialogsReduxForm = reduxForm({ form: "message" })(AddMessageForm);
 
 const Dialogs = (props) => {
-    let addMessage = () => {
-        props.addMessage();
-    };
-
-    let newMessage = React.createRef();
-    let checkMessage = () => {
-        props.checkMessage(newMessage.current.value);
+    let addMessage = (formData) => {
+        props.addMessage(formData.message);
     };
 
     return (
@@ -23,17 +40,7 @@ const Dialogs = (props) => {
                 <div className={s.messageWrapper}>
                     <div className={s.messages}>{props.messages}</div>
                     <hr />
-                    <div>
-                        <textarea
-                            onChange={checkMessage}
-                            ref={newMessage}
-                            placeholder="Enter Message"
-                            value={props.textOfArea}
-                        />
-                        <div className={s.btn}>
-                            <button onClick={addMessage}>Enter</button>
-                        </div>
-                    </div>
+                    <DialogsReduxForm onSubmit={addMessage} />
                 </div>
             </div>
         </div>

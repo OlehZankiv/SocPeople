@@ -1,8 +1,8 @@
 import { profileAPI } from "../api/api";
 
 const ADD_POST = "ADD-POST";
-const CHECK_POST_TEXT = "CHECK-POST-TEXT";
 const SET_USER_PROFILE = "SET_USER_PROFILE";
+const GET_USER_STATUS = "GET_USER_STATUS";
 
 let initialState = {
     posts: {
@@ -17,21 +17,17 @@ let initialState = {
         postText: "",
     },
     profile: null,
+    status: null,
 };
 
 export const profile_reducer = (state = initialState, action) => {
     switch (action.type) {
-        case CHECK_POST_TEXT:
-            return {
-                ...state,
-                posts: { ...state.posts, postText: action.text },
-            };
         case ADD_POST:
-            if (state.posts.postText) {
+            if (action.post) {
                 let newId = state.posts.allPosts.length + 1;
                 let newPost = {
                     id: newId,
-                    message: state.posts.postText,
+                    message: action.post,
                     likeCount: 0,
                 };
                 return {
@@ -39,7 +35,6 @@ export const profile_reducer = (state = initialState, action) => {
                     posts: {
                         ...state.posts,
                         allPosts: [...state.posts.allPosts, newPost],
-                        postText: "",
                     },
                 };
             }
@@ -48,16 +43,23 @@ export const profile_reducer = (state = initialState, action) => {
                 ...state,
                 profile: action.profile,
             };
+        case GET_USER_STATUS:
+            return {
+                ...state,
+                status: action.status,
+            };
         default:
             return state;
     }
 };
 
-export const addPostActionCreator = () => ({ type: ADD_POST });
-export const writeNewPostActionCreator = (text) => ({
-    type: CHECK_POST_TEXT,
-    text: text,
+export const getUserStatusAC = (status) => ({
+    type: GET_USER_STATUS,
+    status,
 });
+
+export const addPostActionCreator = (post) => ({ type: ADD_POST, post });
+
 export const setUserProfileAC = (profile) => ({
     type: SET_USER_PROFILE,
     profile,
@@ -65,9 +67,23 @@ export const setUserProfileAC = (profile) => ({
 
 export const setUserProfile = (userId) => (dispatch) => {
     if (!userId) {
-        userId = 2;
+        userId = 7753;
     }
     profileAPI.getUser(userId).then((data) => {
         dispatch(setUserProfileAC(data));
+    });
+};
+
+export const getUserStatus = (userId) => (dispatch) => {
+    profileAPI.getStatus(userId).then((data) => {
+        dispatch(getUserStatusAC(data));
+    });
+};
+
+export const updateStatus = (status, userId) => (dispatch) => {
+    profileAPI.updateStatus(status).then((data) => {
+        if (data.resultCode === 0) {
+            dispatch(getUserStatus(userId));
+        }
     });
 };

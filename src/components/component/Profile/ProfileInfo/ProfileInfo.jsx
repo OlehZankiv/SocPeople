@@ -8,6 +8,7 @@ const ProfileInfo = (props) => {
     if (!props.profile) {
         return <Loader />;
     }
+
     return (
         <div className={s.wrapper_avatar}>
             <div className={s.img_head}></div>
@@ -40,7 +41,7 @@ const ProfileInfo = (props) => {
                     )}
                     <div className={s.wrapperName}>
                         <div className={s.name}>{props.profile.fullName}</div>
-                        <Status status={props.profile.aboutMe} />
+                        <Status userId={props.profile.userId} updateStatus={props.updateStatus} status={props.status} />
                     </div>
                 </div>
             </div>

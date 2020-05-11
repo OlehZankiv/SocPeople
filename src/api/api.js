@@ -26,12 +26,31 @@ export const loginAPI = {
     login() {
         return instance.get(`auth/me`).then((response) => response.data);
     },
+    userLogin(email, password, rememberMe) {
+        debugger
+        return instance
+            .post("profile/login", { email, password, rememberMe })
+            .then((response) => {
+                debugger
+                if (response.resultCode === 0) return response.data;
+            });
+    },
 };
 
 export const profileAPI = {
     getUser(userId) {
         return instance
             .get(`profile/${userId}`)
+            .then((response) => response.data);
+    },
+    getStatus(userId) {
+        return instance.get(`profile/status/${userId}`).then((response) => {
+            return response.data;
+        });
+    },
+    updateStatus(status) {
+        return instance
+            .put("profile/status", { status: status })
             .then((response) => response.data);
     },
 };
