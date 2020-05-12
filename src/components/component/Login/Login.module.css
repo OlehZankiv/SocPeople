@@ -10,6 +10,10 @@
     justify-content: center;
 }
 
+.loginForm {
+    position: relative;
+}
+
 .loginForm button {
     margin-top: 25px;
     width: 100%;
@@ -38,4 +42,11 @@
     margin-top: 10px;
     display: flex;
     align-items: center;
+}
+
+.errorWrapper {
+    position: absolute;
+    top: -20px;
+    width: 100%;
+    font-size: 13px;
 }

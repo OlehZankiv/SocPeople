@@ -26,14 +26,13 @@ export const loginAPI = {
     login() {
         return instance.get(`auth/me`).then((response) => response.data);
     },
-    userLogin(email, password, rememberMe) {
-        debugger
+    userLogin(email, password, rememberMe = false) {
         return instance
-            .post("profile/login", { email, password, rememberMe })
-            .then((response) => {
-                debugger
-                if (response.resultCode === 0) return response.data;
-            });
+            .post("auth/login", { email, password, rememberMe })
+            .then((response) => response.data);
+    },
+    userLogout() {
+        return instance.delete("auth/login").then((response) => response.data);
     },
 };
 

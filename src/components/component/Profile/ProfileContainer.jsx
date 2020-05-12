@@ -13,14 +13,20 @@ import { compose } from "redux";
 class ProfileContainer extends React.Component {
     componentDidMount() {
         let userId = this.props.match.params.userId;
-        if(!userId) {
-            userId = 7753;
+        if (!userId) {
+            userId = this.props.userId;
         }
         this.props.setUserProfile(userId);
         this.props.getUserStatus(userId);
     }
     render() {
-        return <Profile {...this.props} status={this.props.status} updateStatus={this.props.updateStatus}/>;
+        return (
+            <Profile
+                {...this.props}
+                status={this.props.status}
+                updateStatus={this.props.updateStatus}
+            />
+        );
     }
 }
 
@@ -28,6 +34,7 @@ let mapStateToProps = (state) => {
     return {
         profile: state.profile.profile,
         status: state.profile.status,
+        userId: state.auth.userId,
     };
 };
 export default compose(

@@ -9,7 +9,6 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-
 }
 
 .header img {
@@ -38,7 +37,7 @@
     font-size: 20px;
     text-decoration: none;
     display: block;
-    transition: .1s all;
+    transition: 0.1s all;
 }
 
 .login:hover {
@@ -48,4 +47,12 @@
 .active {
     padding-bottom: 5px;
     border-bottom: 2px solid white;
+}
+
+.logOut {
+    margin-top: 10px;
+    padding: 7px;
+    font-size: 12px;
+    position: absolute;
+    right: 0;
 }

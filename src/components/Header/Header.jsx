@@ -3,6 +3,9 @@ import s from "./Header.module.css";
 import { NavLink } from "react-router-dom";
 
 const Header = (props) => {
+    let userLogout = () => {
+        props.userLogout();
+    };
     return (
         <header className={s.header}>
             <div className={s.headerLogo}>
@@ -14,9 +17,14 @@ const Header = (props) => {
             </div>
             <div className={s.loginWrapper}>
                 {props.isAuth ? (
-                    <NavLink to="/profile" className={s.login}>
-                        {props.userName}
-                    </NavLink>
+                    <div>
+                        <NavLink to="/profile" className={s.login}>
+                            {props.userName}
+                        </NavLink>
+                        <button onClick={userLogout} className={s.logOut}>
+                            LOGOUT
+                        </button>
+                    </div>
                 ) : (
                     <NavLink
                         to="/login"

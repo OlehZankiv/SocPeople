@@ -1,13 +1,14 @@
 import React from "react";
 import s from "./Login.module.css";
 import { reduxForm, Field } from "redux-form";
-import { userLogin } from "../../../redux/auth_reducer";
 import { Input } from "../common/Fields/Field";
-import { required } from "../../../utils/validators/validators"
+import { required } from "../../../utils/validators/validators";
+import { Redirect } from "react-router-dom";
 
 const LoginForm = (props) => {
     return (
         <form className={s.loginForm} onSubmit={props.handleSubmit}>
+            {props.error && <div className={s.errorWrapper}>{props.error}</div>}
             <div>
                 <Field
                     className={s.emailInput}
@@ -32,7 +33,6 @@ const LoginForm = (props) => {
                 <Field
                     className={s.rememberMeInput}
                     name="rememberMe"
-                    validate={required}
                     type="checkbox"
                     component="input"
                 />
@@ -44,19 +44,20 @@ const LoginForm = (props) => {
         </form>
     );
 };
-
 const LoginReduxForm = reduxForm({ form: "login" })(LoginForm);
 
 const Login = (props) => {
-    const onSubmit = (formData) => {
+    const onSubmitLogin = (formData) => {
         let { email, password, rememberMe } = { ...formData };
-        userLogin(email, password, rememberMe);
+        props.userLogin(email, password, rememberMe);
     };
 
-    return (
+    return props.isAuth ? (
+        <Redirect to="/profile" />
+    ) : (
         <div className={s.loginFormWrapper}>
             <h1>LOGIN</h1>
-            <LoginReduxForm onSubmit={onSubmit} />
+            <LoginReduxForm onSubmit={onSubmitLogin} />
         </div>
     );
 };
