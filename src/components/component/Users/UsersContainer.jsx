@@ -10,6 +10,7 @@ import {
 } from "../../../redux/users_reducer";
 import User from "./User/User";
 import Loader from "../common/Loader";
+import { getUsers } from "../../../redux/selectors";
 
 class UsersApi extends React.Component {
     componentDidMount() {
@@ -59,7 +60,7 @@ class UsersApi extends React.Component {
 
 let MapStateToProps = (state) => {
     return {
-        users: state.usersPage.users,
+        users: getUsers(state),
         pageSize: state.usersPage.pageSize,
         totalUsersCount: state.usersPage.totalUsersCount,
         currentPage: state.usersPage.currentPage,

@@ -45,7 +45,7 @@ export const setUserId = (userId) => ({
 });
 
 export const login = () => (dispatch) => {
-    loginAPI.login().then((data) => {
+    return loginAPI.login().then((data) => {
         if (data.resultCode === 0) {
             let { email, id, login } = data.data;
             dispatch(setUserData(id, email, login, true));
