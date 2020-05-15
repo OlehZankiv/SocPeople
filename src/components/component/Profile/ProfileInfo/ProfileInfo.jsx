@@ -2,7 +2,7 @@ import React from "react";
 import s from "./ProfileInfo.module.css";
 import Loader from "../../common/Loader";
 import user from "../../../../assets/images/user.png";
-import Status from "./Status/Status";
+import StatusHook from "./Status/StatusHook";
 
 const ProfileInfo = (props) => {
     if (!props.profile) {
@@ -41,7 +41,11 @@ const ProfileInfo = (props) => {
                     )}
                     <div className={s.wrapperName}>
                         <div className={s.name}>{props.profile.fullName}</div>
-                        <Status userId={props.profile.userId} updateStatus={props.updateStatus} status={props.status} />
+                        <StatusHook
+                            userId={props.profile.userId}
+                            updateStatus={props.updateStatus}
+                            status={props.status}
+                        />
                     </div>
                 </div>
             </div>

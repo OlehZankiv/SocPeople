@@ -2,7 +2,6 @@ import React from "react";
 import DialogItem from "./Dialog/DialogItem";
 import Message from "./Message/Message";
 import {
-    checkMessageActionCreator as checkMessage,
     addMessActionCreator as addMessage,
 } from "../../../redux/dialogs_reducer";
 import Dialogs from "./Dialogs";

@@ -66,6 +66,8 @@ export const userLogin = (email, password, rememberMe) => (dispatch) => {
             case 10:
                 dispatch(stopSubmit("login", { _error: data.messages }));
                 break;
+            default:
+                console.log("Something went wrong");
         }
     });
 };

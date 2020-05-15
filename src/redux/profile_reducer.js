@@ -38,6 +38,7 @@ export const profile_reducer = (state = initialState, action) => {
                     },
                 };
             }
+            return state;
         case SET_USER_PROFILE:
             return {
                 ...state,
