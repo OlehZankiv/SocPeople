@@ -4,11 +4,16 @@ import { reduxForm, Field } from "redux-form";
 import { maxLength } from "../../../../utils/validators/validators";
 import { Textarea } from "../../common/Fields/Field";
 
-let maxLengthValidate = maxLength(500)
+let maxLengthValidate = maxLength(500);
 const PostForm = (props) => {
     return (
         <form onSubmit={props.handleSubmit} className={s.new_post}>
-            <Field validate={[maxLengthValidate]} name="post" component={Textarea} placeholder="Enter post" />
+            <Field
+                validate={[maxLengthValidate]}
+                name="post"
+                component={Textarea}
+                placeholder="Enter post"
+            />
             <div className={s.btn_ens}>
                 <button>SEND</button>
             </div>
@@ -18,7 +23,7 @@ const PostForm = (props) => {
 
 const PostReduxForm = reduxForm({ form: "postForm" })(PostForm);
 
-const MyPosts = (props) => {
+const MyPosts = React.memo((props) => {
     let addPost = (formData) => {
         props.addPost(formData.post);
     };
@@ -29,6 +34,6 @@ const MyPosts = (props) => {
             <div className={s.old_posts}>{props.posts}</div>
         </div>
     );
-};
+});
 
 export default MyPosts;

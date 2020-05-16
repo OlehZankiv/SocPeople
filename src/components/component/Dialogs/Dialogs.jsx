@@ -24,7 +24,7 @@ const AddMessageForm = (props) => {
 
 const DialogsReduxForm = reduxForm({ form: "message" })(AddMessageForm);
 
-const Dialogs = (props) => {
+const Dialogs = React.memo((props) => {    
     let addMessage = (formData) => {
         props.addMessage(formData.message);
     };
@@ -45,6 +45,6 @@ const Dialogs = (props) => {
             </div>
         </div>
     );
-};
+});
 
 export default Dialogs;
