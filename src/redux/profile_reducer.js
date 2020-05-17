@@ -67,9 +67,6 @@ export const setUserProfileAC = (profile) => ({
 });
 
 export const setUserProfile = (userId) => (dispatch) => {
-    if (!userId) {
-        userId = 7753;
-    }
     profileAPI.getUser(userId).then((data) => {
         dispatch(setUserProfileAC(data));
     });

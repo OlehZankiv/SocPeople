@@ -3,6 +3,8 @@ import s from "./MyPosts.module.css";
 import { reduxForm, Field } from "redux-form";
 import { maxLength } from "../../../../utils/validators/validators";
 import { Textarea } from "../../common/Fields/Field";
+import { useEffect } from "react";
+import { useState } from "react";
 
 let maxLengthValidate = maxLength(500);
 const PostForm = (props) => {
