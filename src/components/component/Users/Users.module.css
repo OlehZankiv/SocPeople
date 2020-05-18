@@ -5,25 +5,3 @@
     border: 2px solid #3e3e3e;
     padding: 10px;
 }
-
-.totalCountWrapper span {
-    display: block;
-    cursor: pointer;
-    margin: 0 5px 0 5px;
-}
-.totalCountWrapper {
-    display: flex;
-    margin: 15px 0 0 15px;
-    width: 700px;
-    overflow: hidden;
-}
-
-.activeClass {
-    border: 2px solid white;
-    font-weight: 700;
-    width: 25px;
-    height: 25px;
-    text-align: center;
-    vertical-align: middle;
-    border-radius: 100%
-}

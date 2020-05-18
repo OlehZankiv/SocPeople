@@ -1,10 +1,10 @@
-const ADD_MESSAGE = "ADD-MESSAGE";
-const CHECK_MESSAGE_TEXT = "CHECK-MESSAGE-TEXT";
+const ADD_MESSAGE = "dialogs/ADD-MESSAGE";
 
 export const addMessActionCreator = (message) => ({
     type: ADD_MESSAGE,
     message,
 });
+
 let initialState = {
     dialogs: [
         {
@@ -81,6 +81,7 @@ export const dialogs_reducer = (state = initialState, action) => {
                     },
                 };
             }
+            return state;
         default:
             return state;
     }

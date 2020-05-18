@@ -4,9 +4,9 @@ import { addPostActionCreator as addPost } from "../../../../redux/profile_reduc
 import MyPosts from "./MyPosts";
 import { connect } from "react-redux";
 
-let MapStateToProps = (state) => {
-    let posts = state.profile.posts.allPosts.map((post) => (
-        <Post message={post.message} likeCount={post.likeCount} key={post.id} />
+let MapStateToProps = ({ profile }) => {
+    let posts = profile.posts.allPosts.map((post) => (
+        <Post {...post} key={post.id} />
     ));
 
     return {

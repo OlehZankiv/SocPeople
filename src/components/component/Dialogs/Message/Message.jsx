@@ -1,13 +1,13 @@
 import React from "react";
 import s from "./Message.module.css";
 
-const Message = (props) => {
+const Message = ({ author, message, avatar }) => {
     return (
-        <div className={s.messageWrapper + (props.author ? " " + s.right : "")}>
+        <div className={s.messageWrapper + (author && " " + s.right)}>
             <div className={s.message}>
-                {props.author ? props.message : ""}
-                <img src={props.avatar} alt="avatar" />
-                {!props.author ? props.message : ""}
+                {author && message}
+                <img src={avatar} alt="avatar" />
+                {!author && message}
             </div>
         </div>
     );

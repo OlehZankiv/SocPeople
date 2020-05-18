@@ -1,8 +1,8 @@
 import { profileAPI } from "../api/api";
 
-const ADD_POST = "ADD-POST";
-const SET_USER_PROFILE = "SET_USER_PROFILE";
-const GET_USER_STATUS = "GET_USER_STATUS";
+const ADD_POST = "profile/ADD-POST";
+const SET_USER_PROFILE = "profile/SET_USER_PROFILE";
+const GET_USER_STATUS = "profile/GET_USER_STATUS";
 
 let initialState = {
     posts: {
@@ -72,16 +72,14 @@ export const setUserProfile = (userId) => (dispatch) => {
     });
 };
 
-export const getUserStatus = (userId) => (dispatch) => {
-    profileAPI.getStatus(userId).then((data) => {
-        dispatch(getUserStatusAC(data));
-    });
+export const getUserStatus = (userId) => async (dispatch) => {
+    const data = await profileAPI.getStatus(userId);
+    dispatch(getUserStatusAC(data));
 };
 
-export const updateStatus = (status, userId) => (dispatch) => {
-    profileAPI.updateStatus(status).then((data) => {
-        if (data.resultCode === 0) {
-            dispatch(getUserStatus(userId));
-        }
-    });
+export const updateStatus = (status, userId) => async (dispatch) => {
+    const data = await profileAPI.updateStatus(status);
+    if (data.resultCode === 0) {
+        dispatch(getUserStatus(userId));
+    }
 };

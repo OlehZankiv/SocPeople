@@ -30,11 +30,6 @@
     color: rgb(93, 190, 255);
     margin: 0 0 5px 0;
 }
-.sidebar a.active {
-    border-bottom: 2px solid;
-    font-weight: 700;
-    color: rgb(74, 147, 255);
-}
 
 .sidebar a {
     color: white;

@@ -3,13 +3,11 @@ import s from "./MyPosts.module.css";
 import { reduxForm, Field } from "redux-form";
 import { maxLength } from "../../../../utils/validators/validators";
 import { Textarea } from "../../common/Fields/Field";
-import { useEffect } from "react";
-import { useState } from "react";
 
 let maxLengthValidate = maxLength(500);
-const PostForm = (props) => {
+const PostForm = ({ handleSubmit }) => {
     return (
-        <form onSubmit={props.handleSubmit} className={s.new_post}>
+        <form onSubmit={handleSubmit} className={s.new_post}>
             <Field
                 validate={[maxLengthValidate]}
                 name="post"
@@ -25,15 +23,15 @@ const PostForm = (props) => {
 
 const PostReduxForm = reduxForm({ form: "postForm" })(PostForm);
 
-const MyPosts = React.memo((props) => {
-    let addPost = (formData) => {
-        props.addPost(formData.post);
+const MyPosts = React.memo(({ addPost, posts }) => {
+    let addUserPost = ({ post }) => {
+        addPost(post);
     };
 
     return (
         <div className={s.posts}>
-            <PostReduxForm onSubmit={addPost} />
-            <div className={s.old_posts}>{props.posts}</div>
+            <PostReduxForm onSubmit={addUserPost} />
+            <div className={s.old_posts}>{posts}</div>
         </div>
     );
 });

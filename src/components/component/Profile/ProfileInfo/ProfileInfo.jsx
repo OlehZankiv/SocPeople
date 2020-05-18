@@ -4,8 +4,8 @@ import Loader from "../../common/Loader";
 import user from "../../../../assets/images/user.png";
 import StatusHook from "./Status/StatusHook";
 
-const ProfileInfo = (props) => {
-    if (!props.profile) {
+const ProfileInfo = ({ profile, status, updateStatus }) => {
+    if (!profile) {
         return <Loader />;
     }
 
@@ -15,23 +15,19 @@ const ProfileInfo = (props) => {
             <div className={s.profileInfoWrapper}>
                 <div className={s.avatar}>
                     <img
-                        src={
-                            props.profile.photos.large
-                                ? props.profile.photos.large
-                                : user
-                        }
+                        src={profile.photos.large ? profile.photos.large : user}
                         alt="avatar"
                     />
                 </div>
                 <div className={s.descrWrapper}>
-                    {props.profile.lookingForAJob ? (
+                    {profile.lookingForAJob ? (
                         <div className={s.searchJob}>
                             <img
                                 src="https://logos.textgiraffe.com/logos/logo-name/Job-designstyle-kiddo-m.png"
                                 alt="job"
                             ></img>
                             <div className={s.jobDescr}>
-                                {props.profile.lookingForAJobDescription}
+                                {profile.lookingForAJobDescription}
                             </div>
                         </div>
                     ) : (
@@ -40,11 +36,11 @@ const ProfileInfo = (props) => {
                         </div>
                     )}
                     <div className={s.wrapperName}>
-                        <div className={s.name}>{props.profile.fullName}</div>
+                        <div className={s.name}>{profile.fullName}</div>
                         <StatusHook
-                            userId={props.profile.userId}
-                            updateStatus={props.updateStatus}
-                            status={props.status}
+                            userId={profile.userId}
+                            updateStatus={updateStatus}
+                            status={status}
                         />
                     </div>
                 </div>

@@ -2,13 +2,13 @@ import React, { useState } from "react";
 import s from "./Status.module.css";
 import { useEffect } from "react";
 
-let StatusHook = (props) => {
+let StatusHook = ({ status, updateStatus, userId }) => {
     let [isActiveStatus, changeActive] = useState(false);
-    let [status, changeLocalStatus] = useState(props.status);
+    let [userStatus, changeLocalStatus] = useState(status);
 
     useEffect(() => {
-        changeLocalStatus(props.status);
-    }, [props.status]);
+        changeLocalStatus(status);
+    }, [status]);
 
     let activateEditMode = () => {
         changeActive(true);
@@ -16,8 +16,8 @@ let StatusHook = (props) => {
 
     let deActivateEditMode = () => {
         changeActive(false);
-        if (status !== props.status && status !== "") {
-            props.updateStatus(status, props.userId);
+        if (userStatus !== status && userStatus !== "") {
+            updateStatus(userStatus, userId);
         }
     };
 
@@ -30,7 +30,7 @@ let StatusHook = (props) => {
             {!isActiveStatus ? (
                 <div className={s.status}>
                     <span onClick={activateEditMode}>
-                        {props.status || "status is absent"}
+                        {status || "status is absent"}
                     </span>
                 </div>
             ) : (
@@ -40,7 +40,7 @@ let StatusHook = (props) => {
                         autoFocus
                         onBlur={deActivateEditMode}
                         type="text"
-                        value={status}
+                        value={userStatus}
                     />
                 </div>
             )}

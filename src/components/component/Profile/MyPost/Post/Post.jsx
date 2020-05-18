@@ -1,7 +1,7 @@
 import React from "react";
 import s from "./Post.module.css";
 
-const Post = (props) => {
+const Post = ({message, likeCount}) => {
     return (
         <div className={s.post}>
             <div className={s.post_info}>
@@ -9,10 +9,10 @@ const Post = (props) => {
                     src="https://lastfm.freetls.fastly.net/i/u/770x0/140ab88fbc27abfda6001d33718a52db.webp#140ab88fbc27abfda6001d33718a52db"
                     alt="avatar"
                 />
-                <div className={s.post_descr}>{props.message}</div>
+                <div className={s.post_descr}>{message}</div>
             </div>
             <div className={s.like}>
-                {props.likeCount}
+                {likeCount}
                 <img src="http://pngimg.com/uploads/like/like_PNG90.png" alt="like" />
             </div>
         </div>

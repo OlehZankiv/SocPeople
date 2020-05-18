@@ -1,9 +1,4 @@
-import {
-    profile_reducer,
-    addPostActionCreator,
-    setUserProfile,
-    getUserStatus,
-} from "./profile_reducer";
+import { profile_reducer, addPostActionCreator } from "./profile_reducer";
 
 let state = {
     posts: {

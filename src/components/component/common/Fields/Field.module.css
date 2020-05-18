@@ -28,9 +28,30 @@
     outline: none;
     margin-top: 6px;
 }
+
 .inputWrapper span.errorInfo {
     position: absolute;
     left: calc(-100% + 10px);
     top: 50%;
     transform: translateY(-50%);
+}
+
+/*OTHERS*/
+.passInput {
+    margin-top: 5px;
+}
+
+.rememberMe input {
+    display: block;
+}
+
+.rememberMe label {
+    display: block;
+    font-size: 14px;
+    margin: 0 0 3px 3px;
+}
+.rememberMe {
+    margin-top: 10px;
+    display: flex;
+    align-items: center;
 }

@@ -6,9 +6,9 @@ import { Textarea } from "../common/Fields/Field";
 
 let maxLength150 = maxLength(1000);
 
-const AddMessageForm = (props) => {
+const AddMessageForm = ({ handleSubmit }) => {
     return (
-        <form onSubmit={props.handleSubmit}>
+        <form onSubmit={handleSubmit}>
             <Field
                 component={Textarea}
                 name="message"
@@ -24,9 +24,9 @@ const AddMessageForm = (props) => {
 
 const DialogsReduxForm = reduxForm({ form: "message" })(AddMessageForm);
 
-const Dialogs = React.memo((props) => {    
-    let addMessage = (formData) => {
-        props.addMessage(formData.message);
+const Dialogs = React.memo(({ addMessage, dialogs, messages }) => {
+    const addMessageFunc = ({ message }) => {
+        addMessage(message);
     };
 
     return (
@@ -36,11 +36,11 @@ const Dialogs = React.memo((props) => {
                 <hr />
             </h2>
             <div className={s.dialogs}>
-                <div className={s.dialogs_items}>{props.dialogs}</div>
+                <div className={s.dialogs_items}>{dialogs}</div>
                 <div className={s.messageWrapper}>
-                    <div className={s.messages}>{props.messages}</div>
+                    <div className={s.messages}>{messages}</div>
                     <hr />
-                    <DialogsReduxForm onSubmit={addMessage} />
+                    <DialogsReduxForm onSubmit={addMessageFunc} />
                 </div>
             </div>
         </div>

@@ -31,15 +31,10 @@ class UsersApi extends React.Component {
     };
 
     users = () =>
-        this.props.users.map((user) => (
+        this.props.users.map((user, i) => (
             <User
-                key={user.id}
-                id={user.id}
-                photos={user.photos}
-                followed={user.followed}
-                name={user.fullName}
-                status={user.status}
-                location={user.location}
+                {...user}
+                key={i}
                 follow={this.props.follow}
                 unFollow={this.props.unFollow}
                 isLoad={this.props.isLoad}

@@ -3,50 +3,58 @@ import s from "./User.module.css";
 import user from "../../../../assets/images/user.png";
 import { NavLink } from "react-router-dom";
 
-let User = (props) => {
-    let follow = () => {
-        props.follow(props.id);
+let User = ({
+    follow,
+    unFollow,
+    id,
+    photos,
+    followInLoadId,
+    followed,
+    isLoad,
+    name,
+    status,
+}) => {
+    let userFollow = () => {
+        follow(id);
     };
 
-    let unFollow = () => {
-        props.unFollow(props.id);
+    let userUnFollow = () => {
+        unFollow(id);
     };
 
     return (
         <div>
             <div className={s.wrapperUser}>
                 <div className={s.avatar}>
-                    <NavLink to={`/profile/${props.id}`}>
+                    <NavLink to={`/profile/${id}`}>
                         <img
-                            src={props.photos.small ? props.photos.small : user}
+                            src={photos.small ? photos.small : user}
                             alt="avatar"
                         />
                     </NavLink>
-                    {props.followed ? (
-                        props.isLoad && props.followInLoadId == props.id ? (
-                            <button disabled onClick={unFollow}>
+                    {followed ? (
+                        isLoad && followInLoadId === id ? (
+                            <button disabled onClick={userUnFollow}>
                                 UNFOLLOW
                             </button>
                         ) : (
-                            <button onClick={unFollow}>UNFOLLOW</button>
+                            <button onClick={userUnFollow}>UNFOLLOW</button>
                         )
-                    ) : props.isLoad && props.followInLoadId == props.id ? (
-                        <button disabled onClick={follow}>
+                    ) : isLoad && followInLoadId === id ? (
+                        <button disabled onClick={userFollow}>
                             FOLLOW
                         </button>
                     ) : (
-                        <button onClick={follow}>FOLLOW</button>
+                        <button onClick={userFollow}>FOLLOW</button>
                     )}
                 </div>
 
                 <div className={s.descr}>
-                    <h2 className={s.name}>{props.name}</h2>
-                    <p className={s.status}>{props.status}</p>
+                    <h2 className={s.name}>{name}</h2>
+                    <p className={s.status}>{status}</p>
                     <div className={s.location}>
-                        <div className={s.country}>
-                            {"props.location.country"}
-                        </div>
-                        <div className={s.city}>{"props.location.city"}</div>
+                        <div className={s.country}>{"country"}</div>
+                        <div className={s.city}>{"city"}</div>
                     </div>
                 </div>
             </div>

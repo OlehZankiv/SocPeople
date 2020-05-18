@@ -14,7 +14,6 @@ export const initialize_reducer = (state = initialState, action) => {
             return state;
     }
 };
-export default initialize_reducer;
 
 export const setInitialize = () => ({
     type: SET_INITIALIZE,

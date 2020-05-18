@@ -1,12 +1,12 @@
 import { userAPI } from "../api/api";
 
-const FOLLOW = "FOLLOW";
-const UN_FOLLOW = "UN_FOLLOW";
-const SET_USERS = "SET_USERS";
-const SET_TOTAL_USERS_COUNT = "SET_TOTAL_USERS_COUNT";
-const CHANGE_PAGE = "CHANGE_PAGE";
-const CHANGE_FETCH = "CHANGE_FETCH";
-const FOLLOW_IN_LOADING = "FOLLOW_IN_LOADING";
+const FOLLOW = "user/FOLLOW";
+const UN_FOLLOW = "user/UN_FOLLOW";
+const SET_USERS = "user/SET_USERS";
+const SET_TOTAL_USERS_COUNT = "user/SET_TOTAL_USERS_COUNT";
+const CHANGE_PAGE = "user/CHANGE_PAGE";
+const CHANGE_FETCH = "user/CHANGE_FETCH";
+const FOLLOW_IN_LOADING = "user/FOLLOW_IN_LOADING";
 
 let initialState = {
     users: [],
@@ -18,27 +18,30 @@ let initialState = {
     followInLoadId: null,
 };
 
+const followAndUnfollow = (state, action, followed) => {
+    return {
+        ...state,
+
+        users: state.users.map((user) => {
+            if (user.id === action.id) {
+                return { ...user, followed: followed };
+            }
+            return user;
+        }),
+    };
+};
+
 export const users_reducers = (state = initialState, action) => {
     switch (action.type) {
         case FOLLOW:
             return {
                 ...state,
-                users: state.users.map((user) => {
-                    if (user.id === action.id) {
-                        return { ...user, followed: true };
-                    }
-                    return user;
-                }),
+                users: followAndUnfollow(state, action, true),
             };
         case UN_FOLLOW: {
             return {
                 ...state,
-                users: state.users.map((user) => {
-                    if (user.id === action.id) {
-                        return { ...user, followed: false };
-                    }
-                    return user;
-                }),
+                users: followAndUnfollow(state, action, false),
             };
         }
         case SET_USERS:
@@ -82,27 +85,30 @@ export const setTotalUsersCountAC = (totalCount) => ({
     totalCount,
 });
 
-export const setUsers = (currentPage, pageSize) => (dispatch) => {
+export const setUsers = (currentPage, pageSize) => async (dispatch) => {
     dispatch(changeFetchingAC(true));
-    userAPI.getUsers(currentPage, pageSize).then((data) => {
-        dispatch(changeFetchingAC(false));
-        dispatch(setUsersAC(data.items));
-        dispatch(setTotalUsersCountAC(data.totalCount));
-    });
+
+    const data = await userAPI.getUsers(currentPage, pageSize);
+
+    dispatch(changeFetchingAC(false));
+    dispatch(setUsersAC(data.items));
+    dispatch(setTotalUsersCountAC(data.totalCount));
 };
 
-export const follow = (id) => (dispatch) => {
+export const follow = (id) => async (dispatch) => {
     dispatch(followInLoad(true, id));
-    userAPI.follow(id).then((response) => {
-        dispatch(follow(id));
-        dispatch(followInLoad(id));
-    });
+
+    await userAPI.follow(id);
+
+    dispatch(follow(id));
+    dispatch(followInLoad(id));
 };
 
-export const unFollow = (id) => (dispatch) => {
+export const unFollow = (id) => async (dispatch) => {
     dispatch(followInLoad(true, id));
-    userAPI.unFollow(id).then((response) => {
-        dispatch(unFollow(id));
-        dispatch(followInLoad(false));
-    });
+
+    await userAPI.unFollow(id);
+
+    dispatch(unFollow(id));
+    dispatch(followInLoad(false));
 };

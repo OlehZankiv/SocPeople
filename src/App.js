@@ -1,7 +1,7 @@
 import React from "react";
 import "./App.css";
 import Navbar from "./components/Navbar/Navbar";
-import { Route } from "react-router-dom";
+import { Route, withRouter } from "react-router-dom";
 import Music from "./components/component/Music/Music";
 import Settings from "./components/component/Settings/Settings";
 import News from "./components/component/News/News";
@@ -20,7 +20,8 @@ class App extends React.Component {
     }
 
     render() {
-        if(!this.props.isInitialized) return <Loader />
+        if (!this.props.isInitialized) return <Loader />;
+
         return (
             <div className="app-wrapper">
                 <HeaderContainer />
@@ -44,8 +45,11 @@ class App extends React.Component {
     }
 }
 
-const mapStateToProps = (state) => ({
-    isInitialized: state.initialize.isInitialized,
+const mapStateToProps = ({initialize}) => ({
+    isInitialized: initialize.isInitialized,
 });
 
-export default compose(connect(mapStateToProps, { initialize }))(App);
+export default compose(
+    withRouter,
+    connect(mapStateToProps, { initialize })
+)(App);
