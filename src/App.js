@@ -1,7 +1,7 @@
 import React from "react";
 import "./App.css";
 import Navbar from "./components/Navbar/Navbar";
-import { Route, withRouter } from "react-router-dom";
+import { Route, withRouter, BrowserRouter } from "react-router-dom";
 import Music from "./components/component/Music/Music";
 import Settings from "./components/component/Settings/Settings";
 import News from "./components/component/News/News";
@@ -11,9 +11,10 @@ import ProfileContainer from "./components/component/Profile/ProfileContainer";
 import HeaderContainer from "./components/Header/HeaderContainer";
 import LoginContainer from "./components/component/Login/LoginContainer";
 import { initialize } from "./redux/initialize_reducer";
-import { connect } from "react-redux";
+import { connect, Provider } from "react-redux";
 import { compose } from "redux";
 import Loader from "./components/component/common/Loader";
+import store from "./redux/redux-store";
 class App extends React.Component {
     componentDidMount() {
         this.props.initialize();
@@ -45,11 +46,23 @@ class App extends React.Component {
     }
 }
 
-const mapStateToProps = ({initialize}) => ({
+const mapStateToProps = ({ initialize }) => ({
     isInitialized: initialize.isInitialized,
 });
 
-export default compose(
+const AppContainer = compose(
     withRouter,
     connect(mapStateToProps, { initialize })
 )(App);
+
+const SocPeopleApp = () => {
+    return (
+        <BrowserRouter>
+            <Provider store={store}>
+                <AppContainer />
+            </Provider>
+        </BrowserRouter>
+    );
+};
+
+export default SocPeopleApp;

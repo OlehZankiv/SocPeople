@@ -16,6 +16,7 @@ let Users = ({
                 totalUsersCount={totalUsersCount}
                 pageSize={pageSize}
                 changePage={changePage}
+                count={4}
             />
         </div>
     );
