@@ -42,17 +42,4 @@ describe("Testing Status Component", () => {
         const input = root.findByType("input");
         expect(input.props.value).toBe(componentInstance.state.status);
     });
-
-    test("Callback should to call", () => {
-        const newStatus = "Hello World!!!";
-        const mockCallback = jest.fn();
-        const component = create(
-            <Status status={newStatus} updateStatus={mockCallback} />
-        );
-
-        const componentInstance = component.getInstance();
-        componentInstance.deActivateEditMode();
-
-        expect(mockCallback.calls.length).toBe(1);
-    });
 });

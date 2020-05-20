@@ -2,19 +2,23 @@ import React from "react";
 import "./App.css";
 import Navbar from "./components/Navbar/Navbar";
 import { Route, withRouter, BrowserRouter } from "react-router-dom";
-import Music from "./components/component/Music/Music";
-import Settings from "./components/component/Settings/Settings";
-import News from "./components/component/News/News";
-import DialogsContainer from "./components/component/Dialogs/DialogsContainer";
-import UsersContainer from "./components/component/Users/UsersContainer";
-import ProfileContainer from "./components/component/Profile/ProfileContainer";
 import HeaderContainer from "./components/Header/HeaderContainer";
-import LoginContainer from "./components/component/Login/LoginContainer";
 import { initialize } from "./redux/initialize_reducer";
 import { connect, Provider } from "react-redux";
 import { compose } from "redux";
 import Loader from "./components/component/common/Loader";
 import store from "./redux/redux-store";
+import { withSuspense } from "./hoc/withSuspense";
+
+
+const ProfileContainer = React.lazy( () => import("./components/component/Profile/ProfileContainer"));
+const DialogsContainer = React.lazy( () => import("./components/component/Dialogs/DialogsContainer"));
+const UsersContainer = React.lazy( () => import("./components/component/Users/UsersContainer"));
+const News = React.lazy( () => import("./components/component/News/News"));
+const Settings = React.lazy( () => import("./components/component/Settings/Settings"));
+const Music = React.lazy( () => import("./components/component/Music/Music"));
+const LoginContainer = React.lazy( () => import("./components/component/Login/LoginContainer"));
+
 class App extends React.Component {
     componentDidMount() {
         this.props.initialize();
@@ -31,14 +35,14 @@ class App extends React.Component {
                     <div className="content">
                         <Route
                             path="/profile/:userId?"
-                            component={ProfileContainer}
+                            component={withSuspense(ProfileContainer)}
                         />
-                        <Route path="/dialogs" component={DialogsContainer} />
-                        <Route path="/news" component={News} />
-                        <Route path="/music" component={Music} />
-                        <Route path="/settings" component={Settings} />
-                        <Route path="/users" component={UsersContainer} />
-                        <Route path="/login" component={LoginContainer} />
+                        <Route path="/dialogs" component={withSuspense(DialogsContainer)} />
+                        <Route path="/news" component={withSuspense(News)} />
+                        <Route path="/music" component={withSuspense(Music)} />
+                        <Route path="/settings" component={withSuspense(Settings)} />
+                        <Route path="/users" component={withSuspense(UsersContainer)} />
+                        <Route path="/login" component={withSuspense(LoginContainer)} />
                     </div>
                 </main>
             </div>
@@ -57,7 +61,7 @@ const AppContainer = compose(
 
 const SocPeopleApp = () => {
     return (
-        <BrowserRouter>
+        <BrowserRouter basename={process.env.PUBLIC_URL}>
             <Provider store={store}>
                 <AppContainer />
             </Provider>
