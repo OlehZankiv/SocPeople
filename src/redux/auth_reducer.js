@@ -1,14 +1,16 @@
-import { loginAPI } from "../api/api";
+import { loginAPI, securityAPI } from "../api/api";
 import { stopSubmit } from "redux-form";
 
 const SET_USER_DATA = "auth/SET_USER_DATA";
 const SET_USER_ID = "auth/SET_USER_ID";
+const SET_CAPTCHA_URL = "auth/SET_CAPTCHA_URL";
 
 let initialState = {
     userId: null,
     email: null,
     login: null,
     isAuth: false,
+    captcha: null,
 };
 
 export const auth_reducer = (state = initialState, action) => {
@@ -22,6 +24,12 @@ export const auth_reducer = (state = initialState, action) => {
             return {
                 ...state,
                 userId: action.userId,
+            };
+        }
+        case SET_CAPTCHA_URL: {
+            return {
+                ...state,
+                captcha: action.captchaUpl,
             };
         }
         default:
@@ -44,6 +52,11 @@ export const setUserId = (userId) => ({
     userId,
 });
 
+export const setCaptchaUrl = (captchaUpl) => ({
+    type: SET_CAPTCHA_URL,
+    captchaUpl,
+});
+
 export const login = () => async (dispatch) => {
     let data = await loginAPI.login();
 
@@ -53,8 +66,13 @@ export const login = () => async (dispatch) => {
     }
 };
 
-export const userLogin = (email, password, rememberMe) => async (dispatch) => {
-    let data = await loginAPI.userLogin(email, password, rememberMe);
+export const getCaptchaUrl = () => async (dispatch) => {
+    let data = await securityAPI.getCaptchaUrl();
+    dispatch(setCaptchaUrl(data.url));
+};
+
+export const userLogin = (email, password, rememberMe = false, captcha = null) => async (dispatch) => {
+    let data = await loginAPI.userLogin(email, password, rememberMe, captcha);
     switch (data.resultCode) {
         case 0:
             login();
@@ -64,6 +82,7 @@ export const userLogin = (email, password, rememberMe) => async (dispatch) => {
             dispatch(stopSubmit("login", { _error: data.messages }));
             break;
         case 10:
+            dispatch(getCaptchaUrl());
             dispatch(stopSubmit("login", { _error: data.messages }));
             break;
         default:

@@ -1,8 +1,10 @@
 import { profileAPI } from "../api/api";
+import { stopSubmit } from "redux-form";
 
 const ADD_POST = "profile/ADD-POST";
 const SET_USER_PROFILE = "profile/SET_USER_PROFILE";
 const GET_USER_STATUS = "profile/GET_USER_STATUS";
+const SET_AVATAR = "profile/SET_AVATAR";
 
 let initialState = {
     posts: {
@@ -49,6 +51,17 @@ export const profile_reducer = (state = initialState, action) => {
                 ...state,
                 status: action.status,
             };
+        case SET_AVATAR:
+            return {
+                ...state,
+                profile: {
+                    ...state.profile,
+                    photos: {
+                        ...state.profile.photos,
+                        large: action.photo,
+                    },
+                },
+            };
         default:
             return state;
     }
@@ -66,6 +79,11 @@ export const setUserProfileAC = (profile) => ({
     profile,
 });
 
+export const setAvatarAC = (photo) => ({
+    type: SET_AVATAR,
+    photo,
+});
+
 export const setUserProfile = (userId) => (dispatch) => {
     profileAPI.getUser(userId).then((data) => {
         dispatch(setUserProfileAC(data));
@@ -81,5 +99,24 @@ export const updateStatus = (status, userId) => async (dispatch) => {
     const data = await profileAPI.updateStatus(status);
     if (data.resultCode === 0) {
         dispatch(getUserStatus(userId));
+    }
+};
+
+export const setAvatar = (file) => async (dispatch) => {
+    const data = await profileAPI.setAvatar(file);
+    if (data.resultCode === 0) {
+        dispatch(setAvatarAC(data.data.photos.large));
+    }
+};
+
+export const setProfileData = (profileData) => async (dispatch, getState) => {
+    const id = getState().profile.profile.userId;
+    const data = await profileAPI.setProfileData(profileData);
+
+    if (data.resultCode === 0) {
+        dispatch(setUserProfile(id));
+    } else {
+        dispatch(stopSubmit("profileForm", { _error: data.messages }));
+        return Promise.reject(data.messages);
     }
 };

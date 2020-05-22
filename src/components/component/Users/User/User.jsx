@@ -14,12 +14,15 @@ let User = ({
     name,
     status,
 }) => {
-    let userFollow = () => {
-        follow(id);
-    };
-
-    let userUnFollow = () => {
-        unFollow(id);
+    const buttonIsDisabled = (textOfButton, followOrUnfollow) => {
+        const isLoading = isLoad && followInLoadId === id;
+        return isLoading ? (
+            <button disabled onClick={followOrUnfollow}>
+                {textOfButton}
+            </button>
+        ) : (
+            <button onClick={followOrUnfollow}>{textOfButton}</button>
+        );
     };
 
     return (
@@ -32,21 +35,9 @@ let User = ({
                             alt="avatar"
                         />
                     </NavLink>
-                    {followed ? (
-                        isLoad && followInLoadId === id ? (
-                            <button disabled onClick={userUnFollow}>
-                                UNFOLLOW
-                            </button>
-                        ) : (
-                            <button onClick={userUnFollow}>UNFOLLOW</button>
-                        )
-                    ) : isLoad && followInLoadId === id ? (
-                        <button disabled onClick={userFollow}>
-                            FOLLOW
-                        </button>
-                    ) : (
-                        <button onClick={userFollow}>FOLLOW</button>
-                    )}
+                    {followed
+                        ? buttonIsDisabled("UNFOLLOW", () => unFollow(id))
+                        : buttonIsDisabled("FOLLOW", () => follow(id))}
                 </div>
 
                 <div className={s.descr}>

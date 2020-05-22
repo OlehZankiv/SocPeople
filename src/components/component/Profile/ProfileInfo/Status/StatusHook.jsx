@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import s from "./Status.module.css";
 import { useEffect } from "react";
 
-let StatusHook = ({ status, updateStatus, userId }) => {
+let StatusHook = ({ status, updateStatus, userId, isOwner }) => {
     let [isActiveStatus, changeActive] = useState(false);
     let [userStatus, changeLocalStatus] = useState(status);
 
@@ -11,7 +11,7 @@ let StatusHook = ({ status, updateStatus, userId }) => {
     }, [status]);
 
     let activateEditMode = () => {
-        changeActive(true);
+        isOwner && changeActive(true);
     };
 
     let deActivateEditMode = () => {
@@ -29,7 +29,7 @@ let StatusHook = ({ status, updateStatus, userId }) => {
         <div className={s.statusWrapper}>
             {!isActiveStatus ? (
                 <div className={s.status}>
-                    <span onClick={activateEditMode}>
+                    <span className={isOwner ? s.hoverSpan : ""} onClick={activateEditMode}>
                         {status || "status is absent"}
                     </span>
                 </div>

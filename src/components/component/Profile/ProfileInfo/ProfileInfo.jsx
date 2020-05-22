@@ -1,52 +1,91 @@
 import React from "react";
 import s from "./ProfileInfo.module.css";
 import Loader from "../../common/Loader";
-import user from "../../../../assets/images/user.png";
-import StatusHook from "./Status/StatusHook";
+import settings from "../../../../assets/images/settings.png";
+import { useState } from "react";
+import ProfileData from "./ProfileData";
+import ProfileReduxForm from "./ProfileForm";
 
-const ProfileInfo = ({ profile, status, updateStatus }) => {
+const ProfileInfo = ({
+    profile,
+    status,
+    updateStatus,
+    setAvatar,
+    isOwner,
+    setProfileData,
+}) => {
+    let [editMode, setEditMode] = useState(false);
+
     if (!profile) {
         return <Loader />;
     }
 
+    let allContacts = Object.keys(profile.contacts).map((contact, i) => (
+        <Contact
+            key={i}
+            contactName={contact}
+            contactLink={profile.contacts[contact]}
+        />
+    ));
+
+    const onSubmitProfileForm = (formData) => {
+        setProfileData(formData).then(() => {
+            setEditMode(false);
+        });
+    };
+
+    const toggleEditMode = () => {
+        if (editMode) {
+            setEditMode(false);
+        } else {
+            setEditMode(true);
+        }
+    };
+
     return (
         <div className={s.wrapper_avatar}>
             <div className={s.img_head}></div>
-            <div className={s.profileInfoWrapper}>
-                <div className={s.avatar}>
-                    <img
-                        src={profile.photos.large ? profile.photos.large : user}
-                        alt="avatar"
-                    />
-                </div>
-                <div className={s.descrWrapper}>
-                    {profile.lookingForAJob ? (
-                        <div className={s.searchJob}>
-                            <img
-                                src="https://logos.textgiraffe.com/logos/logo-name/Job-designstyle-kiddo-m.png"
-                                alt="job"
-                            ></img>
-                            <div className={s.jobDescr}>
-                                {profile.lookingForAJobDescription}
-                            </div>
-                        </div>
-                    ) : (
-                        <div className={s.searchJob + " " + s.jobDescr}>
-                            "РАБОТА НЕ ТРЕБУЕТСЯ"
-                        </div>
-                    )}
-                    <div className={s.wrapperName}>
-                        <div className={s.name}>{profile.fullName}</div>
-                        <StatusHook
-                            userId={profile.userId}
-                            updateStatus={updateStatus}
-                            status={status}
-                        />
-                    </div>
-                </div>
-            </div>
+            {editMode ? (
+                <ProfileReduxForm
+                    initialValues={profile}
+                    profile={profile}
+                    onSubmit={onSubmitProfileForm}
+                />
+            ) : (
+                <ProfileData
+                    profile={profile}
+                    status={status}
+                    updateStatus={updateStatus}
+                    setAvatar={setAvatar}
+                    isOwner={isOwner}
+                />
+            )}
+            {isOwner && (
+                <img
+                    src={settings}
+                    alt="settings"
+                    className={s.settingsLogo}
+                    onClick={() => {
+                        toggleEditMode();
+                    }}
+                />
+            )}
+            <div className={s.contacts}>{allContacts}</div>
         </div>
     );
+};
+
+const Contact = ({ contactName, contactLink }) => {
+    if (contactLink) {
+        return (
+            <div className={s.contact}>
+                <a className={s.contactName} href={contactLink}>
+                    {contactName}
+                </a>
+            </div>
+        );
+    }
+    return <div></div>;
 };
 
 export default ProfileInfo;
