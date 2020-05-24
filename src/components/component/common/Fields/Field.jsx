@@ -1,6 +1,7 @@
 import React from "react";
 import s from "./Field.module.css";
 import { Field } from "redux-form";
+import cn from "classnames"
 
 const FieldWithError = ({ hasError, meta, classStyle, ...props }) => {
     return (
@@ -23,7 +24,7 @@ export const Textarea = ({ input, meta, ...props }) => {
             <textarea
                 {...input}
                 {...props}
-                className={hasError ? s.errorField : ""}
+                className={ cn({ [s.errorField]: hasError})}
             />
         </FieldWithError>
     );
@@ -41,7 +42,7 @@ export const Input = ({ input, meta, ...props }) => {
             <input
                 {...input}
                 {...props}
-                className={hasError ? s.errorField : ""}
+                className={cn({[s.errorField] : hasError})}
             />
         </FieldWithError>
     );

@@ -3,6 +3,7 @@ import s from "./ProfileInfo.module.css";
 import user from "../../../../assets/images/user.png";
 import StatusHook from "./Status/StatusHook";
 import download from "../../../../assets/images/download.png";
+import cn from "classnames";
 
 const ProfileData = ({ profile, status, updateStatus, setAvatar, isOwner }) => {
     const setNewAvatar = (e) => {
@@ -41,7 +42,7 @@ const ProfileData = ({ profile, status, updateStatus, setAvatar, isOwner }) => {
                         </div>
                     </div>
                 ) : (
-                    <div className={s.searchJob + " " + s.jobDescr}>
+                    <div className={cn(s.searchJob, s.jobDescr)}>
                         "РАБОТА НЕ ТРЕБУЕТСЯ"
                     </div>
                 )}

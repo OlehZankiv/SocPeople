@@ -3,11 +3,10 @@ import s from "./ProfileInfo.module.css";
 import user from "../../../../assets/images/user.png";
 import { CreateField, Input } from "../../common/Fields/Field";
 import { reduxForm } from "redux-form";
+import cn from "classnames";
 
 const ProfileForm = ({ profile, handleSubmit, error }) => {
-    let allContacts = Object.keys(profile.contacts).map((contact, i) => (
-        <Contact key={i} contactName={contact} />
-    ));
+    let allContacts = Object.keys(profile.contacts).map((contact, i) => <Contact key={i} contactName={contact} />);
 
     let errors;
 
@@ -21,55 +20,25 @@ const ProfileForm = ({ profile, handleSubmit, error }) => {
 
     return (
         <form className={s.profileInfoWrapper} onSubmit={handleSubmit}>
-            
             <div className={s.avatar}>
                 <img src={profile.photos.large || user} alt="avatar" />
                 {error && <div className={s.settingsProfileErrors}>{errors}</div>}
-                </div>
-            <div className={s.descrWrapper + " " + s.descrWrapperForm}>
-                <div className={s.searchJob + " " + s.searchJobForm}>
-                    {CreateField(
-                        "rememberMe",
-                        "checkbox",
-                        "lookingForAJob",
-                        null,
-                        null,
-                        "input",
-                        "do you looking a job?"
-                    )}
+            </div>
+            <div className={cn(s.descrWrapper, s.descrWrapperForm)}>
+                <div className={cn(s.searchJob, s.searchJobForm)}>
+                    {CreateField("rememberMe", "checkbox", "lookingForAJob", null, null, "input", "do you looking a job?")}
                     <div className={s.jobDescr}>
                         <span>Looking for a job description: </span>
-                        {CreateField(
-                            "emailInput",
-                            "text",
-                            "lookingForAJobDescription",
-                            "Your description",
-                            null,
-                            Input
-                        )}
+                        {CreateField("emailInput", "text", "lookingForAJobDescription", "Your description", null, Input)}
                     </div>
                 </div>
                 <div className={s.wrapperAboutMe}>
                     <div className={s.aboutMe}>About me:</div>
-                    {CreateField(
-                        "emailInput",
-                        "text",
-                        "aboutMe",
-                        "What about you?",
-                        null,
-                        Input
-                    )}
+                    {CreateField("emailInput", "text", "aboutMe", "What about you?", null, Input)}
                 </div>
                 <div className={s.wrapperNameForm}>
                     <div className={s.name}>Name:</div>
-                    {CreateField(
-                        "emailInput",
-                        "text",
-                        "fullName",
-                        "Your Name",
-                        null,
-                        Input
-                    )}
+                    {CreateField("emailInput", "text", "fullName", "Your Name", null, Input)}
                 </div>
             </div>
             <div className={s.contactsForm}>{allContacts}</div>
@@ -82,14 +51,7 @@ const Contact = ({ contactName }) => {
     return (
         <div className={s.contact}>
             <span className={s.contactNameForm}>{contactName + ": "}</span>
-            {CreateField(
-                "emailInput",
-                "text",
-                "contacts." + contactName,
-                contactName,
-                null,
-                Input
-            )}
+            {CreateField("emailInput", "text", "contacts." + contactName, contactName, null, Input)}
         </div>
     );
 };

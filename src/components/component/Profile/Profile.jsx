@@ -5,7 +5,7 @@ import MyPostsContainer from "./MyPost/MyPostsContainer";
 
 const Profile = ({ status, updateStatus, profile, setAvatar, isOwner, setProfileData }) => {
     return (
-        <div>
+        <React.Fragment>
             <ProfileInfo
                 status={status}
                 updateStatus={updateStatus}
@@ -15,7 +15,7 @@ const Profile = ({ status, updateStatus, profile, setAvatar, isOwner, setProfile
                 setProfileData={setProfileData}
             />
             <MyPostsContainer />
-        </div>
+        </React.Fragment>
     );
 };
 

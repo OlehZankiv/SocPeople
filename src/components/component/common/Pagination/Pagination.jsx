@@ -1,5 +1,6 @@
 import React from "react";
 import s from "./Pagination.module.css";
+import cn from "classnames"
 
 const Pagination = ({
     totalUsersCount,
@@ -20,7 +21,7 @@ const Pagination = ({
                 onClick={() => {
                     return changePage(page);
                 }}
-                className={currentPage === page ? s.activeClass : ""}
+                className={cn({[s.activeClass] : currentPage === page})}
             >
                 {page}
             </span>
