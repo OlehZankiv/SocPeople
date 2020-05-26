@@ -3,25 +3,13 @@ import s from "./User.module.css";
 import user from "../../../../assets/images/user.png";
 import { NavLink } from "react-router-dom";
 
-let User = ({
-    follow,
-    unFollow,
-    id,
-    photos,
-    followInLoadId,
-    followed,
-    isLoad,
-    name,
-    status,
-}) => {
+let User = ({ follow, unFollow, id, photos, followInLoadId, followed, isLoad, name, status }) => {
     const buttonIsDisabled = (textOfButton, followOrUnfollow) => {
         const isLoading = isLoad && followInLoadId === id;
         return isLoading ? (
-            <button disabled onClick={followOrUnfollow}>
-                {textOfButton}
-            </button>
+            <button disabled>{textOfButton}</button>
         ) : (
-            <button onClick={followOrUnfollow}>{textOfButton}</button>
+            <button onClick={() => followOrUnfollow(id)}>{textOfButton}</button>
         );
     };
 
@@ -30,14 +18,9 @@ let User = ({
             <div className={s.wrapperUser}>
                 <div className={s.avatar}>
                     <NavLink to={`/profile/${id}`}>
-                        <img
-                            src={photos.small ? photos.small : user}
-                            alt="avatar"
-                        />
+                        <img src={photos.small ? photos.small : user} alt="avatar" />
                     </NavLink>
-                    {followed
-                        ? buttonIsDisabled("UNFOLLOW", () => unFollow(id))
-                        : buttonIsDisabled("FOLLOW", () => follow(id))}
+                    {followed ? buttonIsDisabled("UNFOLLOW", unFollow) : buttonIsDisabled("FOLLOW", follow)}
                 </div>
 
                 <div className={s.descr}>

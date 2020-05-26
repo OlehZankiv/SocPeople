@@ -20,7 +20,7 @@ import {
     getUsers,
 } from "../../../redux/selectors";
 
-class UsersApi extends React.Component {
+class UsersContainer extends React.Component {
     componentDidMount() {
         this.props.setUsers(this.props.currentPage, this.props.pageSize);
     }
@@ -79,4 +79,4 @@ export default connect(MapStateToProps, {
     setUsers,
     setTotalUsersCount,
     changeCurrentPage,
-})(UsersApi);
+})(UsersContainer);

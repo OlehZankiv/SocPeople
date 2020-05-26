@@ -19,16 +19,12 @@ let initialState = {
 };
 
 const followAndUnfollow = (state, action, followed) => {
-    return {
-        ...state,
-
-        users: state.users.map((user) => {
-            if (user.id === action.id) {
-                return { ...user, followed: followed };
-            }
-            return user;
-        }),
-    };
+    return state.users.map((user) => {
+        if (user.id === action.id) {
+            return { ...user, followed: followed };
+        }
+        return user;
+    });
 };
 
 export const users_reducers = (state = initialState, action) => {
@@ -97,18 +93,16 @@ export const setUsers = (currentPage, pageSize) => async (dispatch) => {
 
 export const follow = (id) => async (dispatch) => {
     dispatch(followInLoad(true, id));
-
     await userAPI.follow(id);
 
-    dispatch(follow(id));
+    dispatch(followAC(id));
     dispatch(followInLoad(id));
 };
 
 export const unFollow = (id) => async (dispatch) => {
     dispatch(followInLoad(true, id));
-
     await userAPI.unFollow(id);
 
-    dispatch(unFollow(id));
+    dispatch(unFollowAC(id));
     dispatch(followInLoad(false));
 };
