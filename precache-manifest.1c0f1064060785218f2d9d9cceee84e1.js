@@ -1,6 +1,6 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "ed5e850f1d02ba0df8c57b2a50705226",
+    "revision": "0ddc7e5ba2b99eb3762284cc7738b7a8",
     "url": "/SocPeople/index.html"
   },
   {
@@ -16,7 +16,7 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/SocPeople/static/css/5.bfd2bba3.chunk.css"
   },
   {
-    "revision": "002d8ff2e10e05d76fce",
+    "revision": "2dc9544c379bd6ab2e05",
     "url": "/SocPeople/static/css/6.be8738b4.chunk.css"
   },
   {
@@ -32,7 +32,7 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/SocPeople/static/css/9.25b44a53.chunk.css"
   },
   {
-    "revision": "880f09a0b157b7d9601a",
+    "revision": "821c30b28b7733ccab44",
     "url": "/SocPeople/static/css/main.f50b1087.chunk.css"
   },
   {
@@ -64,12 +64,12 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/SocPeople/static/js/5.2cb448a5.chunk.js"
   },
   {
-    "revision": "002d8ff2e10e05d76fce",
-    "url": "/SocPeople/static/js/6.3406c85a.chunk.js"
+    "revision": "2dc9544c379bd6ab2e05",
+    "url": "/SocPeople/static/js/6.daab4826.chunk.js"
   },
   {
     "revision": "81896c98bac7b5b16ab1d3790da5b937",
-    "url": "/SocPeople/static/js/6.3406c85a.chunk.js.LICENSE.txt"
+    "url": "/SocPeople/static/js/6.daab4826.chunk.js.LICENSE.txt"
   },
   {
     "revision": "ab768f19da9395632b25",
@@ -84,12 +84,12 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/SocPeople/static/js/9.007a936a.chunk.js"
   },
   {
-    "revision": "880f09a0b157b7d9601a",
-    "url": "/SocPeople/static/js/main.ab0b3608.chunk.js"
+    "revision": "821c30b28b7733ccab44",
+    "url": "/SocPeople/static/js/main.33396100.chunk.js"
   },
   {
-    "revision": "bcc486822ce7aef9b80c",
-    "url": "/SocPeople/static/js/runtime-main.07e6094b.js"
+    "revision": "778c3ecaa58cd86d4580",
+    "url": "/SocPeople/static/js/runtime-main.9ec41f14.js"
   },
   {
     "revision": "f918d561b857cf75153a0a3e7b7ab706",
