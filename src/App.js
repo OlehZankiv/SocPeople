@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Suspense } from "react";
 import "./App.css";
 import Navbar from "./components/Navbar/Navbar";
 import { Route, withRouter, BrowserRouter, Redirect, Switch } from "react-router-dom";
@@ -8,7 +8,6 @@ import { connect, Provider } from "react-redux";
 import { compose } from "redux";
 import Loader from "./components/component/common/Loader";
 import store from "./redux/redux-store";
-import { withSuspense } from "./hoc/withSuspense";
 
 const ProfileContainer = React.lazy(() => import("./components/component/Profile/ProfileContainer"));
 const DialogsContainer = React.lazy(() => import("./components/component/Dialogs/DialogsContainer"));
@@ -32,17 +31,19 @@ class App extends React.Component {
                 <main className="main container">
                     <Navbar />
                     <div className="content">
-                        <Switch>
-                            <Route exact path="/" render={() => <Redirect to="/profile" />} />
-                            <Route path="/profile/:userId?" component={withSuspense(ProfileContainer)} />
-                            <Route path="/dialogs" component={withSuspense(DialogsContainer)} />
-                            <Route path="/news" component={withSuspense(News)} />
-                            <Route path="/music" component={withSuspense(Music)} />
-                            <Route path="/settings" component={withSuspense(Settings)} />
-                            <Route path="/users" component={withSuspense(UsersContainer)} />
-                            <Route path="/login" component={withSuspense(LoginContainer)} />
-                            <Route path="*" render={() => <div>404 NOT FOUND</div>} />
-                        </Switch>
+                        <Suspense fallback={<Loader />}>
+                            <Switch>
+                                <Route exact path="/" render={() => <Redirect to="/profile" />} />
+                                <Route path="/profile/:userId?" component={ProfileContainer} />
+                                <Route path="/dialogs" component={DialogsContainer} />
+                                <Route path="/news" component={News} />
+                                <Route path="/music" component={Music} />
+                                <Route path="/settings" component={Settings} />
+                                <Route path="/users" component={UsersContainer} />
+                                <Route path="/login" component={LoginContainer} />
+                                <Route path="*" render={() => <div>404 NOT FOUND</div>} />
+                            </Switch>
+                        </Suspense>
                     </div>
                 </main>
             </div>
