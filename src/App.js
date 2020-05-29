@@ -8,6 +8,7 @@ import { connect, Provider } from "react-redux";
 import { compose } from "redux";
 import Loader from "./components/component/common/Loader";
 import store from "./redux/redux-store";
+import ErrorBoundary from "./components/component/common/Error/ErrorBoundary";
 
 const ProfileContainer = React.lazy(() => import("./components/component/Profile/ProfileContainer"));
 const DialogsContainer = React.lazy(() => import("./components/component/Dialogs/DialogsContainer"));
