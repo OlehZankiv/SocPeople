@@ -1,13 +1,11 @@
 import React from "react";
 import Post from "./Post/Post";
 import { addPostActionCreator as addPost } from "../../../../redux/profile_reducer";
-import MyPosts from "./MyPosts";
 import { connect } from "react-redux";
+import MyPostsFormik from "./MyPostsFormik";
 
 let MapStateToProps = ({ profile }) => {
-    let posts = profile.posts.allPosts.map((post) => (
-        <Post {...post} key={post.id} />
-    ));
+    let posts = profile.posts.allPosts.map((post) => <Post {...post} key={post.id} />);
 
     return {
         posts: posts,
@@ -16,6 +14,6 @@ let MapStateToProps = ({ profile }) => {
 
 const MyPostsContainer = connect(MapStateToProps, {
     addPost,
-})(MyPosts);
+})(MyPostsFormik);
 
 export default MyPostsContainer;

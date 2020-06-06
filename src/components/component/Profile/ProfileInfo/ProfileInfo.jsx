@@ -4,8 +4,7 @@ import Loader from "../../common/Loader";
 import settings from "../../../../assets/images/settings.png";
 import { useState } from "react";
 import ProfileData from "./ProfileData";
-import ProfileReduxForm from "./ProfileForm";
-import { NavLink } from "react-router-dom";
+import ProfileFormFormik from "./ProfileFormFormik";
 
 const ProfileInfo = ({ profile, status, updateStatus, setAvatar, isOwner, setProfileData }) => {
     let [editMode, setEditMode] = useState(false);
@@ -36,7 +35,7 @@ const ProfileInfo = ({ profile, status, updateStatus, setAvatar, isOwner, setPro
         <div className={s.wrapper_avatar}>
             <div className={s.img_head}></div>
             {editMode ? (
-                <ProfileReduxForm initialValues={profile} profile={profile} onSubmit={onSubmitProfileForm} />
+                <ProfileFormFormik initialValues={profile} profile={profile} onSubmit={onSubmitProfileForm} />
             ) : (
                 <ProfileData
                     profile={profile}

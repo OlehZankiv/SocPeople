@@ -2,10 +2,10 @@ import React from "react";
 import DialogItem from "./Dialog/DialogItem";
 import Message from "./Message/Message";
 import { addMessActionCreator as addMessage } from "../../../redux/dialogs_reducer";
-import Dialogs from "./Dialogs";
 import { connect } from "react-redux";
 import { withAuthRedirect } from "../../../hoc/withAuthRedirect";
 import { compose } from "redux";
+import DialogsFormik from "./DialogsFormik";
 
 let MapStateToProps = ({ dialogs }) => {
     const allDialogs = dialogs.dialogs.map((dialog) => (
@@ -25,4 +25,4 @@ let MapStateToProps = ({ dialogs }) => {
 export default compose(
     withAuthRedirect,
     connect(MapStateToProps, { addMessage })
-)(Dialogs);
+)(DialogsFormik);

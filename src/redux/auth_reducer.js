@@ -4,12 +4,14 @@ import { stopSubmit } from "redux-form";
 const SET_USER_DATA = "auth/SET_USER_DATA";
 const SET_USER_ID = "auth/SET_USER_ID";
 const SET_CAPTCHA_URL = "auth/SET_CAPTCHA_URL";
+const SET_ERROR = "auth/SET_ERROR";
 
 let initialState = {
     userId: null,
     email: null,
     login: null,
     isAuth: false,
+    errorMessage: null,
     captcha: null,
 };
 
@@ -30,6 +32,12 @@ export const auth_reducer = (state = initialState, action) => {
             return {
                 ...state,
                 captcha: action.captchaUpl,
+            };
+        }
+        case SET_ERROR: {
+            return {
+                ...state,
+                errorMessage: action.message,
             };
         }
         default:
@@ -57,6 +65,11 @@ export const setCaptchaUrl = (captchaUpl) => ({
     captchaUpl,
 });
 
+export const setError = (message) => ({
+    type: SET_ERROR,
+    message,
+});
+
 export const login = () => async (dispatch) => {
     let data = await loginAPI.login();
 
@@ -77,13 +90,14 @@ export const userLogin = (email, password, rememberMe = false, captcha = null) =
         case 0:
             login();
             dispatch(login());
+            dispatch(setError(null));
             break;
         case 1:
-            dispatch(stopSubmit("login", { _error: data.messages }));
+            dispatch(setError(data.messages));
             break;
         case 10:
             dispatch(getCaptchaUrl());
-            dispatch(stopSubmit("login", { _error: data.messages }));
+            dispatch(setError(data.messages));
             break;
         default:
             console.log("Something went wrong");

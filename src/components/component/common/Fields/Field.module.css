@@ -10,6 +10,14 @@
     color: rgb(255, 128, 128);
 }
 
+.errorInfoTextArea {
+    position: absolute;
+    width: 100%;
+    left: 5px;
+    bottom: -20px;
+    color: rgb(255, 128, 128);
+}
+
 .textAreaWrapper textarea {
     outline: none;
     margin-top: 6px;
@@ -32,8 +40,7 @@
 .inputWrapper span.errorInfo {
     position: absolute;
     left: calc(-100% + 10px);
-    top: 50%;
-    transform: translateY(-50%);
+    top: 10px;
 }
 
 /*OTHERS*/
@@ -41,14 +48,11 @@
     margin-top: 5px;
 }
 
-.rememberMe input {
-    display: block;
-}
 
 .rememberMe label {
-    display: block;
     font-size: 14px;
-    margin: 0 0 3px 3px;
+    position: relative;
+    bottom: 1px;
 }
 .rememberMe {
     margin-top: 10px;

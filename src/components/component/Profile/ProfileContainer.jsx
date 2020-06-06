@@ -1,12 +1,6 @@
 import React from "react";
 import Profile from "./Profile";
-import {
-    setUserProfile,
-    getUserStatus,
-    updateStatus,
-    setAvatar,
-    setProfileData,
-} from "../../../redux/profile_reducer";
+import { setUserProfile, getUserStatus, updateStatus, setAvatar, setProfileData } from "../../../redux/profile_reducer";
 import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
 import { withAuthRedirect } from "../../../hoc/withAuthRedirect";
