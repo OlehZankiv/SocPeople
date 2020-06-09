@@ -46,7 +46,7 @@ export const CreateFieldFormik = (className, type, name, placeholder, component,
     <div className={s[className]}>
         <div className={s.inputWrapper}>
             <F type={type} name={name} placeholder={placeholder} as={component} />
-            {labelText && <label>{labelText}</label>}
+            {labelText && <label htmlFor={name}>{labelText}</label>}
             <ErrorMessage
                 className={component === "textarea" ? s.errorInfoTextArea : s.errorInfo}
                 name={name}
